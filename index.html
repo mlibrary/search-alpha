@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<title>Loading...</title>
+<script src="src/js/mithril.js"></script>
+<script src="src/js/underscore.js"></script>
+<script>
+
+"use strict"
+
+var search = {}
+
+search.datastores = function() {
+    return [
+        {name: 'Quicksearch'},
+        {name: 'Catalog'},
+        {name: 'Articles'},
+        {name: 'Databases'},
+        {name: 'Online Fournals'},
+        {name: 'Library Website'}
+    ]
+}
+
+search.fields = function() {
+    return [
+        {name: "Title"},
+        {name: "Author"},
+        {name: "Keyword"}
+    ]
+}
+
+search.records = function() {
+    return [
+        {
+            title: 'Prussia',
+            meta: {
+                "By": "United States. Department of State.",
+                "Published": "1799, Washington : [s.n.], 1799.",
+                "Format": "Book, Available Online"
+            }
+        },
+        {
+            title: 'Prussia : the history of a lost state / Rudolf von Thadden ; translated by Angi Rutter.',
+            meta: {
+                "Main Author": "Thadden, Rudolf von.",
+                "Format": "Book",
+                "Language": "English, German",
+                "Published": "1987, Cambridge [Cambridgeshire] ; New York, NY, USA : Cambridge University Press ; Paris : Editions de la Maison des sciences de l'homme, 1987."
+            }
+        },
+        {
+            title: "Prussia : the history of a lost state",
+            meta: {
+                "Author": "Thadden, Rudolf von.",
+                "Published": "1987",
+                "Format": "Book"
+            }
+        }
+    ]
+}
+
+search.view = function() {
+    return m("html", [
+        m("head", [
+            m("title", "Search [Alpha]"),
+            m("link[href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'][rel='stylesheet']"),
+            m("link[href='src/css/styles.css'][rel='stylesheet']")
+        ]),
+        m("body", [
+            m("header", [
+                m(".container", [
+                    m(".search", [
+                        m("form", [
+                            m("select", [
+                                _.map(fields(), function(field) {
+                                    return m("option", field)   
+                                })
+                            ]),
+                            m("input[type='text']"),
+                            m("input[type='submit'][value='Search']")
+                        ])
+                    ])
+                ])
+            ]),
+            m(".container", [
+                m("aside", [
+                    m("ul.datastores", [
+                        _.map(datastores(), function(datastore) {
+                            return m("li", datastore.name)
+                        })
+                    ])
+                ]),
+                m("main", [
+                    m(".search-info", [
+                        "results: ",
+                        m("b", "0")
+                    ]),
+                    m(".search-results", [
+                        m("ul.items", [
+                            _.map(records(), function(record) {
+                                return m("li.item", [
+                                    m("h3", record.title),
+                                    m("dl",
+                                        _.reduce(record.meta, function(memo, field_value, field_name) {
+                                            memo.push(
+                                                m("dt", field_name),
+                                                m("dd", field_value)
+                                            )
+                                            return memo
+                                        }, [])
+                                    )
+                                ])
+                            })
+                        ])
+                    ])
+                ])
+            ])
+        ])
+    ])
+}
+
+m.mount(document, search())
+
+</script>
