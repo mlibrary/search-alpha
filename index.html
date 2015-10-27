@@ -1,32 +1,31 @@
-
 <!DOCTYPE html>
 <title>Loading...</title>
 <script src="src/js/mithril.js"></script>
 <script src="src/js/underscore.js"></script>
 <script>
 
-var Roxie = {
-
-    datastores: function() {
-        return [
-            {name: 'Quicksearch'},
-            {name: 'Catalog'},
-            {name: 'Articles'},
-            {name: 'Databases'},
-            {name: 'Online Fournals'},
-            {name: 'Library Website'}
-        ]
+var Record = {
+    controller: function(args) {
+        return args
     },
-    
-    fields: function() {
-        return [
-            {name: "All Fields"},
-            {name: "Title"},
-            {name: "Author"}
-        ]
-    },
+    view: function(ctrl) {
+        return m("li.item", [
+            m("h3", ctrl.title),
+            m("dl",
+                _.reduce(ctrl.meta, function(memo, field_value, field_name) {
+                    memo.push(
+                        m("dt", field_name),
+                        m("dd", field_value)
+                    )
+                    return memo
+                }, [])
+            )
+        ])
+    }
+}
 
-    records: function() {
+var Records = {
+    controller: function() {
         return [
             {
                 title: 'Prussia',
@@ -55,61 +54,124 @@ var Roxie = {
             }
         ]
     },
+    view: function(ctrl) {
+        return m(".search-results", [
+            m("ul.items", [
+                _.map(ctrl, function(record) {
+                    return m.component(Record, record)
+                })
+            ])
+        ])
+    }
+}
 
+var Field = {
+    controller: function(args) {
+        return args
+    },
+    view: function(ctrl) {
+        return m("option", ctrl.name)
+    }
+}
+
+var Fields = {
+    controller: function(args) {
+        return [
+            {name: 'Quicksearch'},
+            {name: 'Catalog'},
+            {name: 'Articles'},
+            {name: 'Databases'},
+            {name: 'Online Fournals'},
+            {name: 'Library Website'}
+        ]
+    },
+    view: function(ctrl) {
+        return m("select.fields", [
+            _.map(ctrl, function(field) {
+                return m.component(Field, field)
+            })
+        ])
+    }
+}
+
+var Datastore = {
+    controller: function(args) {
+        return args
+    },
+    view: function(ctrl) {
+        return m("li", ctrl.name)
+    }
+}
+
+var Datastores = {
+    controller: function() {
+        return [
+            {name: 'Quicksearch'},
+            {name: 'Catalog'},
+            {name: 'Articles'},
+            {name: 'Databases'},
+            {name: 'Online Fournals'},
+            {name: 'Library Website'}
+        ]
+    },
+    view: function(ctrl) {
+        return m("ul.datastores", [
+            _.map(ctrl, function(datastore) {
+                return m.component(Datastore, datastore)
+            })
+        ])
+    }
+}
+
+var Head = {
+    view: function() {
+        return m("head", [
+            m("title", "Search [Alpha]"),
+            m("link[href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'][rel='stylesheet']"),
+            m("link[href='src/css/styles.css'][rel='stylesheet']")
+        ])
+    }
+}
+
+var SearchInput = {
+    view: function() {
+        return m(".search", [
+            m("form", [
+                m("input[type='text']"),
+                m.component(Fields),
+                m("input[type='submit'][value='Search']")
+            ])
+        ])
+    }
+}
+
+var App = {
+    fields: function() {
+        return [
+            {name: "All Fields"},
+            {name: "Title"},
+            {name: "Author"}
+        ]
+    },
     view: function() {
         return m("html", [
-            m("head", [
-                m("title", "Search [Alpha]"),
-                m("link[href='https://fonts.googleapis.com/css?family=Open+Sans:400,700'][rel='stylesheet']"),
-                m("link[href='src/css/styles.css'][rel='stylesheet']")
-            ]),
+            m.component(Head),
             m("body", [
                 m("header", [
                     m(".container", [
-                        m(".search", [
-                            m("form", [
-                                m("input[type='text']"),
-                                m("select.fields", [
-                                    _.map(this.fields(), function(field) {
-                                        return m("option", field.name)   
-                                    })
-                                ]),
-                                m("input[type='submit'][value='Search']")
-                            ])
-                        ])
+                        m.component(SearchInput),
                     ])
                 ]),
                 m(".container", [
                     m("aside", [
-                        m("ul.datastores", [
-                            _.map(this.datastores(), function(datastore) {
-                                return m("li", datastore.name)
-                            })
-                        ])
+                        m.component(Datastores)
                     ]),
                     m("main", [
                         m(".search-info", [
                             "results: ",
                             m("b", "0")
                         ]),
-                        m(".search-results", [
-                            m("ul.items", [
-                                _.map(this.records(), function(record) {
-                                    return m("li.item", [
-                                        m("h3", record.title),
-                                        m("dl",
-                                            _.reduce(record.meta, function(memo, field_value, field_name) {
-                                                memo.push(
-                                                    m("dt", field_name),
-                                                    m("dd", field_value)
-                                                )
-                                                return memo
-                                            }, [])
-                                        )
-                                    ])
-                                })
-                            ])
-                        ])
+                        m.component(Records)
                     ])
                 ])
             ])
@@ -118,6 +180,6 @@ var Roxie = {
 }
 
 
-m.mount(document, Roxie)
+m.mount(document, App)
 
 </script>
