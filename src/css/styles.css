@@ -19,10 +19,13 @@ body {
 header {
 	background: #d3d3d3;
 }
-input {
+input,
+select {
 	border: solid 1px #666;
-	padding: 0.5em;
+	padding: 0.6em 0.8em;
 	font-size: 1em;
+	border-radius: 0;
+	background: white;
 }
 .container {
 	max-width: 60em;
@@ -42,11 +45,25 @@ form {
 	text-align: center;
 }
 input[type='text'] {
-	width: 40%;
+	width: 50%;
 }
 input[type='submit'] {
 	background: #444;
 	color: #fff;
+}
+select {
+	-webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+select.fields {
+	background-image: url("../img/arrow-triangle-down.png");
+    background-position: 96% center;
+    background-position: top 0.7em right 0.5em;
+    background-repeat: no-repeat;
+	border-left: none;
+	border-right: none;
+	min-width: 16%;
 }
 
 /*
