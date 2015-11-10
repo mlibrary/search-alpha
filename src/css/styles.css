@@ -9,12 +9,15 @@ h3 {
 	font-weight: 700;
 }
 
-body {
+body,
+a {
 	font-family: "Open Sans";
 	color: #333;
-	background: #efefef;
-	font-weight: 400;
-	font-size: 1em;
+}
+body {
+    background: #efefef;
+    font-weight: 400;
+    font-size: 1em;
 }
 header {
 	background: #d3d3d3;
@@ -36,27 +39,48 @@ select {
 /*
 	Search
 */
+form input {
+    box-sizing: border-box;
+}
+.search form > div {
+  position: relative;
+  margin-right: 6em; /* same with `button width` + `button distance from search field` */
+  padding-right: 8em;
+}
 .search {
-	margin: 0 auto;
+    width: 80%;
 	padding: 2em 0;
 	margin-bottom: 2em;
+    margin-right: auto;
+    margin-left: auto;
 }
-form {
+.search form {
 	text-align: center;
 }
-input[type='text'] {
-	width: 50%;
+.search input[type='text'] {
+    display: block;
+	width: 100%;
 }
-input[type='submit'] {
+.search input[type='submit'] {
 	background: #444;
 	color: #fff;
+    display: block;
+    width: 6em; /* this is the `button width` */
+    position: absolute;
+    top: 0;
+    left: 100%; /* push to the right! */
 }
-select {
+.search select {
+    display: block;
+    position: absolute;
+    width: 8em;
+    top: 0;
+    right: 0;
 	-webkit-appearance: none;
     -moz-appearance: none;
     appearance: none;
 }
-select.fields {
+.search select.fields {
 	background-image: url("../img/arrow-triangle-down.png");
     background-position: 96% center;
     background-position: top 0.7em right 0.5em;
@@ -83,18 +107,24 @@ select.fields {
 /*
 	Search Results
 */
-.items {
-	padding: 0;
+.search-results-container {
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    margin-bottom: 2em;
+}
+
+.search-items {
 	list-style: none;
 }
 
 .item,
 .search-info {
 	background: #fff;
-	padding: 1em;
-	margin-bottom: 2em;
-	border-radius: 2px;
-	box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+	padding: 2em;
+}
+
+.item {
+    padding-top: 0;
 }
 
 dt {
@@ -119,4 +149,33 @@ main {
   input[type='text'] {
   	width: auto;
   }
+}
+.message-info,
+.message-success,
+.message-warning,
+.message-error {
+    position: relative;
+    text-align: center;
+    padding: 1em;
+    color: #333;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+.message-info {
+    background-color: #BDE5F8;
+}
+.message-success {
+    background-color: #DFF2BF;
+}
+.message-warning {
+    background-color: #FEEFB3;
+}
+.message-error {
+    background-color: #FFBABA;
+}
+.message-close {
+    position: absolute;
+    padding: 1em;
+    right: 1em;
+    top: 0;
+    cursor: pointer;
 }
