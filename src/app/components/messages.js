@@ -11,38 +11,15 @@ App.Message = {
   }
 }
 
-App.Messages = {
-  update: function(message) {
-    console.log(message.details);
-  },
-  model: function() {
-    this.class
-  },
-  controller: function(args) {
-    return [
-      {
-        class: "info",
-        summary: "Information!",
-        details: "You've been given a sample of an informational message."
-      },
-      {
-        class: "success",
-        summary: "Success",
-        details: "A long-winded explanation for your success."
-      },
-      {
-        class: "warning",
-        summary: "Warning",
-        details: "The thing might be broken, use caution."
-      },
-      {
-        class: "error",
-        summary: "Error",
-        details: "Something went wrong with the doohickey."
-      }
-    ]
+App.MessageList = [];
 
-    Pride.Messe
+App.Messages = {
+  add: function(message) {
+    App.MessageList.push(message)
+    m.redraw();
+  },
+  controller: function() {
+    return App.MessageList
   },
   view: function(ctrl) {
     return m("ul.messages", [

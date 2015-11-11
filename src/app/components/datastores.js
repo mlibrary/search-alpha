@@ -11,14 +11,12 @@ App.Datastore = {
 
 App.Datastores = {
   controller: function() {
-    return [
-      {name: 'Quicksearch'},
-      {name: 'Catalog'},
-      {name: 'Articles'},
-      {name: 'Databases'},
-      {name: 'Online Fournals'},
-      {name: 'Library Website'}
-    ]
+    var ds_array = []
+    Pride.AllDatastores.each(function(datastore) {
+      ds_array.push({name: datastore.get('metadata').name})
+    })
+
+    return ds_array
   },
   view: function(ctrl) {
     return m("ul.datastores", [

@@ -3,23 +3,53 @@ App.Record = {
     return args
   },
   view: function(ctrl) {
-    return m("li.item", [
-      m("h3", ctrl.names[0]),
-      m("dl",
-        _.reduce(ctrl.fields, function(memo, field_value, field_name) {
-          memo.push(
-            m("dt", field_name),
-            m("dd", field_value)
-            )
-          return memo
-        }, [])
-      )
-    ])
+
+    if (ctrl.names) {
+      return m("li.item", [
+        m("h3", ctrl.names[0]),
+        m("dl",
+          _.reduce(ctrl.fields, function(memo, field_value, field_name) {
+            memo.push(
+              m("dt", field_name),
+              m("dd", field_value)
+              )
+            return memo
+          }, [])
+        )
+      ])
+    }
+
+    return m('li')
+
   }
 }
 
+App.RecordsArray = []
+
 App.Records = {
   controller: function() {
+
+    this.RecordsArray = []
+
+    /*
+    App.RecordsArray .each(function(record) {
+      record_array.push({
+        names: [
+          "Some Name",
+          "Second Name"
+        ],
+        fields: {
+          "By": "United States. Department of State.",
+          "Published": "1799, Washington : [s.n.], 1799.",
+          "Format": "Book, Available Online"
+        }
+      })
+    })
+
+    return record_array
+    */
+
+    /*
     return [
     {
       names: [
@@ -54,6 +84,7 @@ App.Records = {
       }
     }
     ]
+    */
   },
   view: function(ctrl) {
     return m("ul.search-items", [
