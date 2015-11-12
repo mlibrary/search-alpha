@@ -6,7 +6,9 @@ App.Message = {
   },
   view: function(ctrl) {
     return m(".message-" + ctrl.class, ctrl.details, [
-      m("div.message-close", m.trust("&#10005;"))
+      m("div.message-close", m.trust("&#10005;", {
+        onclick: function() { console.log('click') }
+      }))
     ])
   }
 }

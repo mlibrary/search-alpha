@@ -4,91 +4,49 @@ App.Record = {
   },
   view: function(ctrl) {
 
+    console.log('=== app record ===')
+    console.log(ctrl.names)
+
     if (ctrl.names) {
       return m("li.item", [
         m("h3", ctrl.names[0]),
         m("dl",
-          _.reduce(ctrl.fields, function(memo, field_value, field_name) {
-            memo.push(
-              m("dt", field_name),
-              m("dd", field_value)
+          _.reduce(ctrl.fields, function(memo, field) {
+            if (field.uid != "fullrecord") {
+              memo.push(
+                m("dt", field.name),
+                m("dd", field.value)
               )
+            }
             return memo
           }, [])
         )
       ])
     }
 
-    return m('li')
+    /*
+    return m("h3.placeholder", "No" [
+      m("dl", [
+        m("dt.placeholder"),
+        m("dd.placeholder"),
+        m("dt.placeholder"),
+        m("dd.placeholder"),
+        m("dt.placeholder"),
+        m("dd.placeholder")
+      ])
+    ])
+    */
 
+    return m('h3.placeholder', 'loading')
   }
 }
 
 App.RecordsArray = []
 
 App.Records = {
-  controller: function() {
-
-    this.RecordsArray = []
-
-    /*
-    App.RecordsArray .each(function(record) {
-      record_array.push({
-        names: [
-          "Some Name",
-          "Second Name"
-        ],
-        fields: {
-          "By": "United States. Department of State.",
-          "Published": "1799, Washington : [s.n.], 1799.",
-          "Format": "Book, Available Online"
-        }
-      })
-    })
-
-    return record_array
-    */
-
-    /*
-    return [
-    {
-      names: [
-      'Prussia'
-      ],
-      fields: {
-        "By": "United States. Department of State.",
-        "Published": "1799, Washington : [s.n.], 1799.",
-        "Format": "Book, Available Online"
-      }
-    },
-    {
-      names: [
-      'Prussia : the history of a lost state / Rudolf von Thadden ; translated by Angi Rutter.'
-      ],
-      fields: {
-        "Main Author": "Thadden, Rudolf von.",
-        "Format": "Book",
-        "Language": "English, German",
-        "Published": "1987, Cambridge [Cambridgeshire] ; New York, NY, USA : Cambridge University Press ; Paris : Editions de la Maison des sciences de l'homme, 1987."
-      }
-    },
-    {
-      names: [
-      "Prussia : the history of a lost state",
-      "Prussia"
-      ],
-      fields: {
-        "Author": "Thadden, Rudolf von.",
-        "Published": "1987",
-        "Format": "Book"
-      }
-    }
-    ]
-    */
-  },
-  view: function(ctrl) {
+  view: function() {
     return m("ul.search-items", [
-      _.map(ctrl, function(record) {
+      _.map(App.RecordsArray, function(record) {
         return m.component(App.Record, record)
       })
     ])

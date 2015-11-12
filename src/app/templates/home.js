@@ -9,16 +9,16 @@ App.Home = {
           m.component(App.Messages),
           m(".container", [
             m.component(App.Search)
-            ])
-          ]),
+          ])
+        ]),
         m(".container", [
           m("aside", [
             m.component(App.Datastores)
-            ]),
+          ]),
           m("main", [
             m(".search-results-container", [
               m(".search-info", [
-                "About 3 results"
+                App.RecordsArray.length + " results"
               ]),
               m.component(App.Records)
             ])

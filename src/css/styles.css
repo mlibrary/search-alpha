@@ -177,3 +177,9 @@ main {
     top: 0;
     cursor: pointer;
 }
+
+.placeholder {
+  display: block;
+  width: 100%;
+  background-color: #333;
+}
