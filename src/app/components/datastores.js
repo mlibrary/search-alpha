@@ -5,13 +5,17 @@ App.Datastore = {
     return args
   },
   view: function(ctrl) {
-    return m("li", ctrl.name)
+    return m("li", {
+      onclick: function(e) {console.log(e.target)}
+    }, ctrl.name)
   }
 }
 
 App.Datastores = {
   controller: function() {
+
     var ds_array = []
+
     Pride.AllDatastores.each(function(datastore) {
       ds_array.push({name: datastore.get('metadata').name})
     })

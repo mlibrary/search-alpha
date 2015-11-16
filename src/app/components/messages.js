@@ -5,10 +5,13 @@ App.Message = {
     return args
   },
   view: function(ctrl) {
-    return m(".message-" + ctrl.class, ctrl.details, [
-      m("div.message-close", m.trust("&#10005;", {
-        onclick: function() { console.log('click') }
-      }))
+    return m(".message-" + ctrl.class, ctrl.details || ctrl.summary, [
+      m("div.message-close", {
+        onclick: function(e) {
+          var element = e.target.parentElement 
+          element.parentNode.removeChild(element)
+        },
+      }, m.trust("&#10005;"))
     ])
   }
 }

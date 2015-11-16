@@ -1,23 +1,86 @@
-body,
-html,
-ul {
-	margin: 0;
-	padding: 0;
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+   */
+
+   html, body, div, span, applet, object, iframe,
+   h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+   a, abbr, acronym, address, big, cite, code,
+   del, dfn, em, img, ins, kbd, q, s, samp,
+   small, strike, strong, sub, sup, tt, var,
+   b, u, i, center,
+   dl, dt, dd, ol, ul, li,
+   fieldset, form, label, legend,
+   table, caption, tbody, tfoot, thead, tr, th, td,
+   article, aside, canvas, details, embed, 
+   figure, figcaption, footer, header, hgroup, 
+   menu, nav, output, ruby, section, summary,
+   time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+  }
+  /* HTML5 display-role reset for older browsers */
+  article, aside, details, figcaption, figure, 
+  footer, header, hgroup, menu, nav, section {
+    display: block;
+  }
+  body {
+    line-height: 1;
+  }
+  ol, ul {
+    list-style: none;
+  }
+  blockquote, q {
+    quotes: none;
+  }
+  blockquote:before, blockquote:after,
+  q:before, q:after {
+    content: '';
+    content: none;
+  }
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+  }
+
+
+
+/*  Styles */
+.site-title-container {
+  width: 100%;
+  background: #333;
+}
+.site-title {
+  color: #fff;
+  padding: 1em 0;
 }
 h3 {
-	margin: 0;
-	font-weight: 700;
+  margin-bottom: 1em;
+  font-weight: 700;
+  font-size: 1.4em;
+}
+
+body {
+  line-height: 1.4;
+}
+
+p {
+  margin-bottom: 2em;
 }
 
 body,
 a {
-	font-family: "Open Sans";
-	color: #333;
+ font-family: "Open Sans";
+ color: #333;
 }
 body {
-    background: #efefef;
-    font-weight: 400;
-    font-size: 1em;
+  background: #efefef;
+  font-weight: 400;
+  font-size: 1em;
 }
 header {
 	background: #d3d3d3;
@@ -29,6 +92,7 @@ select {
 	font-size: 1em;
 	border-radius: 0;
 	background: white;
+  margin: 0;
 }
 .container {
 	max-width: 60em;
@@ -40,7 +104,7 @@ select {
 	Search
 */
 form input {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 .search form > div {
   position: relative;
@@ -48,90 +112,132 @@ form input {
   padding-right: 8em;
 }
 .search {
-    width: 80%;
-	padding: 2em 0;
-	margin-bottom: 2em;
-    margin-right: auto;
-    margin-left: auto;
+  padding: 2em 0;
+  margin-bottom: 2em;
+  margin-right: auto;
+  margin-left: auto;
 }
 .search form {
-	text-align: center;
+  text-align: center;
 }
 .search input[type='text'] {
-    display: block;
-	width: 100%;
+  display: block;
+  width: 100%;
 }
 .search input[type='submit'] {
 	background: #444;
 	color: #fff;
-    display: block;
-    width: 6em; /* this is the `button width` */
-    position: absolute;
-    top: 0;
-    left: 100%; /* push to the right! */
+  display: block;
+  width: 6em; /* this is the `button width` */
+  position: absolute;
+  top: 0;
+  left: 100%; /* push to the right! */
 }
 .search select {
-    display: block;
-    position: absolute;
-    width: 8em;
-    top: 0;
-    right: 0;
-	-webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
+  display: block;
+  position: absolute;
+  width: 8em;
+  top: 0;
+  right: 0;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
 }
 .search select.fields {
 	background-image: url("../img/arrow-triangle-down.png");
-    background-position: 96% center;
-    background-position: top 0.7em right 0.5em;
-    background-repeat: no-repeat;
-	border-left: none;
-	border-right: none;
-	min-width: 16%;
+  background-position: 96% center;
+  background-position: top 0.7em right 0.5em;
+  background-repeat: no-repeat;
+  border-left: none;
+  border-right: none;
+  min-width: 16%;
+}
+@media (max-width: 50em) {
+
+  .search {
+    width: 100%;
+  }
+
+  .search form > div {
+    padding: 0;
+    margin: 0;
+  }
+
+  .search form > div,
+  .search.input[type='text'],
+  .search input[type='submit'],
+  .search select {
+    position: inherit;
+    width: 100%;
+  }
+
+  .search select.fields {
+    border: solid 1px #666;
+    margin: 0.5em 0;
+  }
 }
 
 /*
 	Data Stores
 */
 .datastores {
-	padding: 0;
-	margin: 0;
-	list-style: none;
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  margin-bottom: 2em;
 }
 .datastores li {
-	margin-bottom: 0.5em;
-	text-decoration: underline;
-	cursor: pointer;
+  padding-bottom: 1em;
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 /*
 	Search Results
 */
 .search-results-container {
-    margin-bottom: 2em;
+  background: #fff;
 }
 
 .search-items {
-	list-style: none;
+  list-style: none;
 }
 
-.item,
-.search-info {
-	background: #fff;
-	padding: 2em;
+.search-info,
+.item {
+  padding: 2em;
+  border-bottom: solid 1px #efefef;
 }
 
 .item {
-    padding-top: 0;
+  overflow: auto;
+  line-height: 1.4;
 }
 
 dt {
-	font-weight: 700;
+  float: left;
+  clear: left;
+  width: 8em;
+  text-align: right;
+  font-weight: bold;
+}
+dt:after {
+  content: ":";
+}
+dd {
+  margin: 0 0 0 8.5em;
+  padding: 0 0 0.5em 0;
+}
+
+main,
+aside {
+  margin-bottom: 2em;
 }
 
 aside {
-	width: 20%;
+	width: 18%;
 	float: left;
+  padding-right: 2%;
 }
 main {
 	width: 80%;
@@ -152,34 +258,40 @@ main {
 .message-success,
 .message-warning,
 .message-error {
-    position: relative;
-    text-align: center;
-    padding: 1em;
-    color: #333;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+  position: relative;
+  text-align: center;
+  padding: 1em 4em;
+  line-height: 1.4;
+  color: #333;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .message-info {
-    background-color: #BDE5F8;
+  background-color: #BDE5F8;
 }
 .message-success {
-    background-color: #DFF2BF;
+  background-color: #DFF2BF;
 }
 .message-warning {
-    background-color: #FEEFB3;
+  background-color: #FEEFB3;
 }
 .message-error {
-    background-color: #FFBABA;
+  background-color: #FFBABA;
 }
 .message-close {
-    position: absolute;
-    padding: 1em;
-    right: 1em;
-    top: 0;
-    cursor: pointer;
+  position: absolute;
+  padding: 1em;
+  right: 1em;
+  top: 0;
+  cursor: pointer;
 }
-
 .placeholder {
   display: block;
   width: 100%;
-  background-color: #333;
+  background-color: #999;
+  color: #999;
+}
+
+.helper {
+  font-style: italic;
+  color: #666;
 }
