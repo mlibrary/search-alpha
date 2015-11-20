@@ -16,15 +16,15 @@ App.Message = {
   }
 }
 
-App.MessageList = [];
+App.messages = [];
 
 App.Messages = {
   add: function(message) {
-    App.MessageList.push(message)
+    App.messages.push(message)
     m.redraw();
   },
   controller: function() {
-    return App.MessageList
+    return App.messages
   },
   view: function(ctrl) {
     return m("ul.messages", [
