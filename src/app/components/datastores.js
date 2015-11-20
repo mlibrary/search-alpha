@@ -19,6 +19,10 @@ App.DatastoresComponent = {
   controller: function() {
     return {
       selectDatastore: function(datastore_element) {
+        App.RecordsArray = []
+        App.searchInput("")
+        document.getElementById('search').value = ""
+        m.redraw()
         var selected_datastore = _.where(App.Datastores, {uid: datastore_element.dataset.uid})
         App.ActiveDatastore = selected_datastore[0]
       }

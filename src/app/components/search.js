@@ -1,31 +1,24 @@
 var App = App || {};
 
-App.search_input = m.prop("")
-
-App.reset = function() {
-  App.messages = []
-  App.search_input("")
-}
+App.searchInput = m.prop("")
 
 App.Search = {
 
   controller: function() {
     return {
       submitSearch: function() {
+        App.messages = []
         NProgress.start()
-        App.reset()
-
         var search_object = Pride.AllDatastores.newSearch(App.ActiveDatastore.uid).set(
           {
             count: 10,
-            field_tree: new Pride.FieldNode('title', new Pride.LiteralNode(App.search_input()))
+            field_tree: new Pride.FieldNode('title', new Pride.LiteralNode(App.searchInput()))
           }
         ).run()
 
         search_object.addResultsObserver(function(records) {
           App.RecordsArray = [] // reset records array
           _.each(records, function(record) {
-
             if (record) {
               record.renderPart(function(render) {
                 App.RecordsArray.push(render)
@@ -38,8 +31,6 @@ App.Search = {
           if ((records.length == 0) || (records[0] != undefined)) {
             NProgress.done()
           }
-
-          NProgress.done()
         })
       }
     }
@@ -49,9 +40,9 @@ App.Search = {
     return m(".search", [
       m("form", [
         m("div", [
-          m("input[type='text'][placeholder='Search']", {
+          m("input[type='text']#search[placeholder='Search']", {
             oninput: m.withAttr('value', function(value) {
-              App.search_input(value)
+              App.searchInput(value)
             })
           }),
           m.component(App.Fields),
@@ -71,7 +62,6 @@ App.SearchInfoComponent = {
     if (App.RecordsArray.length > 0) {
       return m(".search-info", App.RecordsArray.length + " Results")
     }
-
     return m('.search-info', "")
   }
 }

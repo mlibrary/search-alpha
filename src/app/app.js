@@ -2,7 +2,6 @@ var App = App || {};
 
 //routes to start with the `#` symbol
 m.route.mode = "hash";
-
 Pride.settings.datastores_url = 'http://dev.www.lib.umich.edu/testapp/spectrum/';
 
 Pride.init(function() {
@@ -13,7 +12,6 @@ Pride.init(function() {
   });
 
   App.DatastoresComponent.init()
-
 })
 
 // Add Pride messages to App Messages.
