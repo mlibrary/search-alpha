@@ -12,14 +12,13 @@ App.Field = {
 App.Fields = {
   controller: function(args) {
     return [
-      {name: 'All Fields'},
       {name: 'Title'},
       {name: 'Author'},
       {name: 'Subject'}
     ]
   },
   view: function(ctrl) {
-    return m("select.fields", [
+    return m("select.fields[disabled]", [
       _.map(ctrl, function(field) {
         return m.component(App.Field, field)
       })

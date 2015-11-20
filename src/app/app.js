@@ -12,10 +12,13 @@ Pride.init(function() {
     "/record": App.FullRecord
   });
 
+  App.DatastoresComponent.init()
+
 })
 
 // Add Pride messages to App Messages.
+/*
 Pride.Messenger.addObserver(function(message) {
     App.Messages.add(message);
-    m.redraw()
 })
+*/

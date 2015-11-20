@@ -4,7 +4,7 @@ App.Record = {
   },
   view: function(ctrl) {
     return m("li.item", [
-      m("h3", ctrl.names[0]),
+      m("h3", ctrl.names),
       m("dl",
         _.reduce(ctrl.fields, function(memo, field) {
           if ((field.uid != "fullrecord") && (field.uid != "title")) {

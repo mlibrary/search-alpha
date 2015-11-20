@@ -1,31 +1,41 @@
 var App = App || {};
 
-App.Datastore = {
-  controller: function(args) {
-    return args
-  },
-  view: function(ctrl) {
-    return m("li", {
-      onclick: function(e) {console.log(e.target)}
-    }, ctrl.name)
-  }
-}
+App.Datastores = []
+App.ActiveDatastore = {}
 
-App.Datastores = {
-  controller: function() {
-
-    var ds_array = []
-
-    Pride.AllDatastores.each(function(datastore) {
-      ds_array.push({name: datastore.get('metadata').name})
+App.DatastoresComponent = {
+  init: function() {
+    Pride.AllDatastores.each(function(ds) {
+      App.Datastores.push({
+        uid: ds.get('uid'),
+        name: ds.get('metadata').name,
+      })
     })
 
-    return ds_array
+    App.ActiveDatastore = App.Datastores[0]
+
+    m.redraw()
+  },
+  controller: function() {
+    return {
+      selectDatastore: function(datastore_element) {
+        var selected_datastore = _.where(App.Datastores, {uid: datastore_element.dataset.uid})
+        App.ActiveDatastore = selected_datastore[0]
+      }
+    }
   },
   view: function(ctrl) {
     return m("ul.datastores", [
-      _.map(ctrl, function(datastore) {
-        return m.component(App.Datastore, datastore)
+      _.map(App.Datastores, function(ds) {
+        if (ds == App.ActiveDatastore) {
+          return m("li.selected[data-uid='" + ds.uid + "']", {
+            onclick: function(e) { ctrl.selectDatastore(e.target) }
+          }, ds.name)
+        } else {
+          return m("li[data-uid='" + ds.uid + "']", {
+            onclick: function(e) { ctrl.selectDatastore(e.target) }
+          }, ds.name)
+        }
       })
     ])
   }

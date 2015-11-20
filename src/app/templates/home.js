@@ -14,15 +14,12 @@ App.Home = {
         ]),
         m(".container", [
           m("aside", [
-            m("p.helper", "Please note only mirlyn is searchable and fields are not working."),
-            m.component(App.Datastores)
+            m.component(App.DatastoresComponent)
           ]),
           m("main", [
             m(".search-results-container", [
-              m(".search-info", [
-                App.Search.resultsInfo()
-              ]),
-              m.component(App.Records),
+              m.component(App.SearchInfoComponent),
+              m.component(App.Records)
             ])
           ])
         ])

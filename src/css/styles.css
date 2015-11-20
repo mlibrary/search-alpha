@@ -52,7 +52,7 @@
 /*  Styles */
 .site-title-container {
   width: 100%;
-  background: #333;
+  background: #444;
 }
 .site-title {
   color: #fff;
@@ -75,7 +75,7 @@ p {
 body,
 a {
  font-family: "Open Sans";
- color: #333;
+ color: #444;
 }
 body {
   background: #efefef;
@@ -87,7 +87,7 @@ header {
 }
 input,
 select {
-	border: solid 1px #666;
+	border: solid 1px #444;
 	padding: 0.6em 0.8em;
 	font-size: 1em;
 	border-radius: 0;
@@ -187,9 +187,14 @@ form input {
   margin-bottom: 2em;
 }
 .datastores li {
-  padding-bottom: 1em;
-  text-decoration: underline;
+  margin-bottom: 0.25em;
   cursor: pointer;
+  padding: 0.4em 0.6em;
+}
+
+.datastores li.selected {
+  background: #444;
+  color: white;
 }
 
 /*
@@ -237,10 +242,10 @@ aside {
 aside {
 	width: 18%;
 	float: left;
-  padding-right: 2%;
+  padding-right: 3%;
 }
 main {
-	width: 80%;
+	width: 79%;
 	float: right;
 }
 
@@ -262,7 +267,7 @@ main {
   text-align: center;
   padding: 1em 4em;
   line-height: 1.4;
-  color: #333;
+  color: #444;
   box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
 }
 .message-info {
@@ -289,9 +294,4 @@ main {
   width: 100%;
   background-color: #999;
   color: #999;
-}
-
-.helper {
-  font-style: italic;
-  color: #666;
 }
