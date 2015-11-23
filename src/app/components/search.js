@@ -3,14 +3,9 @@ var App = App || {};
 App.searchInput = m.prop()
 App.searchData = m.prop()
 App.searchObject = m.prop()
-
 App.previousUid = m.prop()
 
 App.Search = {
-  set: function(set_config) {
-    App.searchObject().set(set_config)
-  },
-
   controller: function() {
     return {
       submitSearch: function() {
@@ -21,21 +16,19 @@ App.Search = {
           count: 10,
           field_tree: new Pride.FieldNode('title', new Pride.LiteralNode(App.searchInput()))
         }
+        var uid = App.activeDatastore.uid
 
         if (!App.searchObject()) {
-          App.searchObject(Pride.AllDatastores.newSearch(App.ActiveDatastore.uid))
-          App.previousUid(App.ActiveDatastore.uid)
+          App.searchObject(Pride.AllDatastores.newSearch(uid))
+          App.previousUid(uid)
         } else {
-          // Check if uid has changed.
-          // If yes, create new search object.
-
-          if (App.ActiveDatastore.uid != App.previousUid()) {
-            App.searchObject(Pride.AllDatastores.newSearch(App.ActiveDatastore.uid))
-            App.previousUid(App.ActiveDatastore.uid)
+          if (uid != App.previousUid()) {
+            App.searchObject(Pride.AllDatastores.newSearch(uid))
+            App.previousUid(uid)
           }
         }
 
-        App.Search.set(config)
+        App.searchObject().set(config)
         App.searchObject().run()
 
         App.searchObject().addResultsObserver(function(records) {
@@ -85,10 +78,10 @@ App.Search = {
   }
 }
 
-App.SearchInfoComponent = {
+App.SearchInfo = {
   view: function() {
     if (App.RecordsArray.length > 0) {
-      return m(".search-info", App.RecordsArray.length + " Results")
+      return m(".search-info", App.searchData().total_available + " Results")
     }
     return m('.search-info', "")
   }

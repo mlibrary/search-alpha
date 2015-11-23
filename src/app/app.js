@@ -12,11 +12,15 @@ Pride.init({
       "/record": App.FullRecord
     });
 
-    App.DatastoresComponent.init()
+    App.Datastores.init()
+
+    Pride.settings.connection_attempts = 2;
   }
 })
 
 // Add Pride messages to App Messages.
+/*
 Pride.Messenger.addObserver(function(message) {
     App.Messages.add(message);
 })
+*/

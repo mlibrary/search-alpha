@@ -14,14 +14,10 @@ App.Home = {
         ]),
         m(".container", [
           m("aside", [
-            m.component(App.DatastoresComponent)
+            m.component(App.Datastores)
           ]),
           m("main", [
-            m.component(App.Pagination),
-            m(".search-results-container", [
-              m.component(App.SearchInfoComponent),
-              m.component(App.Records)
-            ])
+            m.component(App.Results)
           ])
         ])
       ])

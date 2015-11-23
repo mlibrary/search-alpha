@@ -1,14 +1,5 @@
 var App = App || {};
 
-App.Field = {
-  controller: function(args) {
-    return args
-  },
-  view: function(ctrl) {
-    return m("option", ctrl.name)
-  }
-}
-
 App.Fields = {
   controller: function(args) {
     return [

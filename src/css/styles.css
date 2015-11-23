@@ -306,13 +306,11 @@ main {
   padding: 0.4em 0.6em;
   text-decoration: none;
 }
-
 .btn {
   display: inline-block;
   background: #444;
   color: #fff;
 }
-
 .hide {
   display: none;
 }
