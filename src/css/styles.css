@@ -294,3 +294,25 @@ main {
   background-color: #999;
   color: #999;
 }
+
+.pagination {
+  text-align: center;
+  margin-bottom: 2em;
+}
+.pagination li {
+  display: inline-block;
+}
+.pagination a {
+  padding: 0.4em 0.6em;
+  text-decoration: none;
+}
+
+.btn {
+  display: inline-block;
+  background: #444;
+  color: #fff;
+}
+
+.hide {
+  display: none;
+}

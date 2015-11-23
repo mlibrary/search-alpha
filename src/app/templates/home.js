@@ -17,6 +17,7 @@ App.Home = {
             m.component(App.DatastoresComponent)
           ]),
           m("main", [
+            m.component(App.Pagination),
             m(".search-results-container", [
               m.component(App.SearchInfoComponent),
               m.component(App.Records)

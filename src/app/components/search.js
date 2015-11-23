@@ -1,22 +1,44 @@
 var App = App || {};
 
-App.searchInput = m.prop("")
+App.searchInput = m.prop()
+App.searchData = m.prop()
+App.searchObject = m.prop()
+
+App.previousUid = m.prop()
 
 App.Search = {
+  set: function(set_config) {
+    App.searchObject().set(set_config)
+  },
 
   controller: function() {
     return {
       submitSearch: function() {
         App.messages = []
         NProgress.start()
-        var search_object = Pride.AllDatastores.newSearch(App.ActiveDatastore.uid).set(
-          {
-            count: 10,
-            field_tree: new Pride.FieldNode('title', new Pride.LiteralNode(App.searchInput()))
-          }
-        ).run()
 
-        search_object.addResultsObserver(function(records) {
+        var config = {
+          count: 10,
+          field_tree: new Pride.FieldNode('title', new Pride.LiteralNode(App.searchInput()))
+        }
+
+        if (!App.searchObject()) {
+          App.searchObject(Pride.AllDatastores.newSearch(App.ActiveDatastore.uid))
+          App.previousUid(App.ActiveDatastore.uid)
+        } else {
+          // Check if uid has changed.
+          // If yes, create new search object.
+
+          if (App.ActiveDatastore.uid != App.previousUid()) {
+            App.searchObject(Pride.AllDatastores.newSearch(App.ActiveDatastore.uid))
+            App.previousUid(App.ActiveDatastore.uid)
+          }
+        }
+
+        App.Search.set(config)
+        App.searchObject().run()
+
+        App.searchObject().addResultsObserver(function(records) {
           App.RecordsArray = [] // reset records array
           _.each(records, function(record) {
             if (record) {
@@ -32,6 +54,12 @@ App.Search = {
             NProgress.done()
           }
         })
+
+        App.searchObject().addRunDataObserver(function(data) {
+          App.messages = []
+          App.searchData(data)
+        })
+
       }
     }
   },
