@@ -1,20 +1,17 @@
 var App = App || {};
 
-//routes to start with the `#` symbol
+// Mithril settings
 m.route.mode = "hash";
-Pride.settings.datastores_url = 'http://dev.www.lib.umich.edu/testapp/spectrum/';
 
+// Intialize Pride
 Pride.init({
   success: function() {
-    // Setup Routes
     m.route(document, "/", {
       "/": App.Home,
       "/record": App.FullRecord
     });
 
     App.Datastores.init()
-
-    Pride.settings.connection_attempts = 2;
   }
 })
 
@@ -23,4 +20,33 @@ Pride.init({
 Pride.Messenger.addObserver(function(message) {
     App.Messages.add(message);
 })
+
+App.searchObject().addFacetsObserver(function() {
+  console.log('===')
+  console.log(App.RecordsArray)
+  console.log('facets')
+  console.log('===')
+})
+
+App.searchObject().addResultsObserver(function() {
+  console.log('===')
+  console.log(App.RecordsArray)
+  console.log('results')
+  console.log('===')
+})
+
+App.searchObject().addRunDataObserver(function() {
+  console.log('===')
+  console.log(App.RecordsArray)
+  console.log('run data')
+  console.log('===')
+})
+
+App.searchObject().addSetDataObserver(function() {
+  console.log('===')
+  console.log(App.RecordsArray)
+  console.log('set data')
+  console.log('===')
+})
+
 */

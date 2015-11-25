@@ -2,7 +2,6 @@ var App = App || {}
 
 App.Results = {
   view: function() {
-
     if (App.RecordsArray.length === 0) {
       return m.component(App.Pagination)
     } else {

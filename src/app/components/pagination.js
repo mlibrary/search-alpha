@@ -3,6 +3,11 @@ App.Pagination = {
     var data = App.searchData()
 
     if (data && Number.isInteger(data.page_limit)) {
+
+      console.log('Hello World')
+      console.log(data)
+      console.log(data.page_limit)
+
       return m('ul.pagination', [
         m("li", [
           m("a[href='#'].btn", {
