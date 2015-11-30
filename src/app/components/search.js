@@ -1,6 +1,6 @@
 var App = App || {};
 
-App.searchInput = m.prop('')
+App.searchInput = m.prop()
 App.searchData = m.prop()
 App.searchObject = m.prop()
 App.previousUid = m.prop()
@@ -12,15 +12,11 @@ App.Search = {
         App.messages = []
         NProgress.start()
 
+
         // replace field_tree with {} on empty
         var config = {
           count: 10,
-          field_tree: {
-            new Pride.FieldTree.Field(
-              'title',
-              new Pride.FieldTree.Literal(App.searchInput())
-            )
-          }
+          field_tree: new Pride.FieldTree.Field('title', new Pride.FieldTree.Literal(App.searchInput()))
         }
         var uid = App.activeDatastore.uid
 
