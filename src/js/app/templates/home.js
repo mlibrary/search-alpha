@@ -19,7 +19,8 @@ App.Home = {
           m("main", [
             m.component(App.Results)
           ])
-        ])
+        ]),
+        m.component(App.Scripts)
       ])
     ])
   }

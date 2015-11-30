@@ -1,17 +1,8 @@
 var App = App || {};
 
-// Mithril settings
-m.route.mode = "hash";
-
-// Intialize Pride
 Pride.init({
   success: function() {
-    m.route(document, "/", {
-      "/": App.Home,
-      "/record": App.FullRecord
-    });
-
-    App.Datastores.init()
+    App.State.prideIsReady()
   }
 })
 

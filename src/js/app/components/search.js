@@ -12,7 +12,6 @@ App.Search = {
         App.messages = []
         NProgress.start()
 
-
         // replace field_tree with {} on empty
         var config = {
           count: 10,
