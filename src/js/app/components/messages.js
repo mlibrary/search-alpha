@@ -1,6 +1,6 @@
-var App = App || {};
+var app = app || {};
 
-App.Message = {
+app.Message = {
   controller: function(args) {
     return args
   },
@@ -16,20 +16,20 @@ App.Message = {
   }
 }
 
-App.messages = [];
+app.messages = [];
 
-App.Messages = {
+app.Messages = {
   add: function(message) {
-    App.messages.push(message)
+    app.messages.push(message)
     m.redraw();
   },
   controller: function() {
-    return App.messages
+    return app.messages
   },
   view: function(ctrl) {
     return m("ul.messages", [
       _.map(ctrl, function(message) {
-        return m.component(App.Message, message)
+        return m.component(app.Message, message)
       })
     ])
   }

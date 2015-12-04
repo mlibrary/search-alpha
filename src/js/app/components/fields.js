@@ -1,6 +1,6 @@
-var App = App || {};
+var app = app || {};
 
-App.Fields = {
+app.Fields = {
   controller: function(args) {
     return [
       {name: 'Title'},

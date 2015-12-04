@@ -1,14 +1,14 @@
-var App = App || {}
+var app = app || {}
 
-App.Results = {
+app.Results = {
   view: function() {
-    if (App.RecordsArray.length === 0) {
-      return m.component(App.Pagination)
+    if (app.RecordsArray.length === 0) {
+      return m.component(app.Pagination)
     } else {
-      return m.component(App.Pagination),
+      return m.component(app.Pagination),
         m(".search-results-container", [
-          m.component(App.SearchInfo),
-          m.component(App.Records)
+          m.component(app.SearchInfo),
+          m.component(app.Records)
         ])
     }
   }

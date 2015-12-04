@@ -1,46 +1,63 @@
-var App = App || {};
+var app = app || {};
 
-// State contains all Pride observers
-App.State = {
-  query: m.prop(),
-  searchCache: m.prop(),
-  search: m.prop(),
+// state contains all Pride observers
+app.state = {
+  currentDatastore: m.prop({}),
+  datastores: m.prop([]),
+
   init: function() {
     m.route(document, "/", {
-      "/": App.Home,
+      "/": app.Home,
     });
+    NProgress.start() // Pride start
   },
-  prideIsReady: function() {
-    App.Datastores.init()
-  },
-  switch: function(uid) {
+  initPride: function(success) {
+    if (success) {
 
-    var search = this.getSearch(this.searchCache(), uid)
+      // Datastores
+      var array = []
+      Pride.AllDatastores.each(function(ds) {
+        array.push({
+          uid: ds.get('uid'),
+          name: ds.get('metadata').name,
 
-    // TO DO
-    // 1. destroy observers
-    // 2. add old search back to search cache
+          // Search object
+          searchObject: Pride.AllDatastores.newSearch(ds.get('uid')),
+          records: []
+        })
+      })
+      this.datastores(array)
 
-    // 3. remove new search item by uid
-    //this.removeSearch(uid)
-    // 4. re add oberservers to selected search
-    this.search(search)
+      app.switchTo('databases')
+      m.redraw()
 
-    console.log('hello ' + this.search())
-
-    // 5. run() current_search: run(), search_cache: run(0)
-
-    m.redraw()
-  },
-  addSearch: function(uid) {
-
-  },
-  getSearch: function(uid) {
-    return _.findWhere(this.searchCache(), {uid: uid})
-  },
-  removeSearch: function(uid) {
-    return _.without(this.searchCache(), this.getSearch(this.searchCache(), uid))
+    } else {
+      console.log('Pride failed to load.')
+      // TODO set an error message
+    }
+    NProgress.done() // Pride done
   }
 }
 
-App.State.init()
+// Utilties
+// TODO: switchTo
+
+app.switchTo = function(uid) {
+  if (typeof uid === "string") {
+    var ds = _.findWhere(app.state.datastores(), {uid: uid})
+
+    if (ds === undefined) {
+      throw "datastore \"" + uid + "\" doesn't exist"
+    } else {
+      app.state.currentDatastore(ds)
+
+      return ds
+    }
+  } else {
+    throw "datastore unique uid is not a string"
+  }
+
+  return undefined
+}
+
+app.state.init()

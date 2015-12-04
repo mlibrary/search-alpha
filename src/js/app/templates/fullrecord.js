@@ -1,6 +1,6 @@
-var App = App || {};
+var app = app || {};
 
-App.FullRecord = {
+app.FullRecord = {
   view: function () {
     return m("html", [
       m.component(Head),

@@ -1,26 +1,26 @@
-var App = App || {};
+var app = app || {};
 
-App.Home = {
+app.Home = {
   view: function() {
     return m("html", [
-      m.component(App.Head),
+      m.component(app.Head),
       m("body", [
         m("header", [
-          m.component(App.Messages),
-          m.component(App.Header),
+          m.component(app.Messages),
+          m.component(app.Header),
           m(".container", [
-            m.component(App.Search)
+            m.component(app.Search)
           ])
         ]),
         m(".container", [
           m("aside", [
-            m.component(App.Datastores)
+            m.component(app.datastores)
           ]),
           m("main", [
-            m.component(App.Results)
+            m.component(app.Results)
           ])
         ]),
-        m.component(App.Scripts)
+        m.component(app.Scripts)
       ])
     ])
   }

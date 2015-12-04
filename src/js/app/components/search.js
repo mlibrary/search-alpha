@@ -1,76 +1,46 @@
-var App = App || {};
+var app = app || {};
 
-App.searchInput = m.prop()
-App.searchData = m.prop()
-App.searchObject = m.prop()
-App.previousUid = m.prop()
-
-App.Search = {
+app.Search = {
   controller: function() {
     return {
-      submitSearch: function() {
-        App.messages = []
-        NProgress.start()
+      submit: function() {
 
-        // replace field_tree with {} on empty
         var config = {
           count: 10,
-          field_tree: new Pride.FieldTree.Field('title', new Pride.FieldTree.Literal(App.searchInput()))
-        }
-        var uid = App.activeDatastore.uid
-
-        if (!App.searchObject()) {
-          App.searchObject(Pride.AllDatastores.newSearch(uid))
-          App.previousUid(uid)
-        } else {
-          if (uid != App.previousUid()) {
-            App.searchObject(Pride.AllDatastores.newSearch(uid))
-            App.previousUid(uid)
-          }
+          field_tree: new Pride.FieldTree.Field('title', new Pride.FieldTree.Literal(app.searchInput()))
         }
 
-        App.searchObject().set(config)
-        App.searchObject().run()
+        var searchObject = app.state.currentDatastore().searchObject
+        var records = []
+        searchObject.set(config).run()
 
-        App.searchObject().addResultsObserver(function(records) {
-          App.RecordsArray = [] // reset records array
+        searchObject.addResultsObserver(function(records) {
           _.each(records, function(record) {
-            if (record) {
-              record.renderPart(function(render) {
-                App.RecordsArray.push(render)
-                m.redraw()
-              })
-            }
+            record.renderPart(function(render) {
+              records.push(render)
+            })
           })
 
-          // No results or waiting to hear back from Pride
-          if ((records.length == 0) || (records[0] != undefined)) {
-            NProgress.done()
-          }
+          app.state.currentDatastore().records = records
         })
 
-        App.searchObject().addRunDataObserver(function(data) {
-          App.messages = []
-          App.searchData(data)
-        })
-
-      }
+      } // end of submit func
     }
   },
-
   view: function(ctrl) {
     return m(".search", [
       m("form", [
         m("div", [
           m("input[type='text']#search[placeholder='Search']", {
             oninput: m.withAttr('value', function(value) {
-              App.searchInput(value)
+              app.searchInput(value)
             })
           }),
-          m.component(App.Fields),
+          m.component(app.Fields),
           m("input[type='submit'][value='Search']", {
-            onclick: function() {
-              ctrl.submitSearch()
+            onclick: function(e) {
+              e.preventDefault()
+              ctrl.submit()
             }
           })
         ])
@@ -79,10 +49,10 @@ App.Search = {
   }
 }
 
-App.SearchInfo = {
+app.SearchInfo = {
   view: function() {
-    if (App.RecordsArray.length > 0) {
-      return m(".search-info", App.searchData().total_available + " Results")
+    if (app.state.records.length > 0) {
+      return m(".search-info", "PLACEHOLDER Results")
     }
     return m('.search-info', "")
   }

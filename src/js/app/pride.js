@@ -1,41 +1,44 @@
-var App = App || {};
+var app = app || {};
 
 Pride.init({
   success: function() {
-    App.State.prideIsReady()
+    app.state.initPride(true)
+  },
+  failure: function() {
+    app.state.initPride(false)
   }
 })
 
-// Add Pride messages to App Messages.
+// Add Pride messages to app Messages.
 /*
 Pride.Messenger.addObserver(function(message) {
-    App.Messages.add(message);
+    app.Messages.add(message);
 })
 
-App.searchObject().addFacetsObserver(function() {
+app.searchObject().addFacetsObserver(function() {
   console.log('===')
-  console.log(App.RecordsArray)
+  console.log(app.RecordsArray)
   console.log('facets')
   console.log('===')
 })
 
-App.searchObject().addResultsObserver(function() {
+app.searchObject().addResultsObserver(function() {
   console.log('===')
-  console.log(App.RecordsArray)
+  console.log(app.RecordsArray)
   console.log('results')
   console.log('===')
 })
 
-App.searchObject().addRunDataObserver(function() {
+app.searchObject().addRunDataObserver(function() {
   console.log('===')
-  console.log(App.RecordsArray)
+  console.log(app.RecordsArray)
   console.log('run data')
   console.log('===')
 })
 
-App.searchObject().addSetDataObserver(function() {
+app.searchObject().addSetDataObserver(function() {
   console.log('===')
-  console.log(App.RecordsArray)
+  console.log(app.RecordsArray)
   console.log('set data')
   console.log('===')
 })

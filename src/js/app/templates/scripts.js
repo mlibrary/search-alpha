@@ -1,6 +1,6 @@
-var App = App || {}
+var app = app || {}
 
-App.Scripts = {
+app.Scripts = {
   view: function() {
     return m('div', [
       m('script[src="src/lib/pride/initial_setup.js"]'),

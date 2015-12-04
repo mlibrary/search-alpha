@@ -1,4 +1,4 @@
-App.Head = {
+app.Head = {
   view: function() {
     return m("head", [
       m("title", "Search [Alpha]"),

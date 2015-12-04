@@ -1,4 +1,4 @@
-App.Record = {
+app.Record = {
   controller: function(args) {
     return args
   },
@@ -20,13 +20,13 @@ App.Record = {
   }
 }
 
-App.RecordsArray = []
+app.RecordsArray = []
 
-App.Records = {
+app.Records = {
   view: function() {
     return m("ul.search-items", [
-      _.map(App.RecordsArray, function(record) {
-        return m.component(App.Record, record)
+      _.map(app.RecordsArray, function(record) {
+        return m.component(app.Record, record)
       })
     ])
   }

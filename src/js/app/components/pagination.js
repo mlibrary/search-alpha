@@ -1,6 +1,8 @@
-App.Pagination = {
+app.Pagination = {
   view: function() {
-    var data = App.searchData()
+
+    /*
+    var data = app.searchData()
 
     if (data && Number.isInteger(data.page_limit)) {
 
@@ -11,7 +13,7 @@ App.Pagination = {
       return m('ul.pagination', [
         m("li", [
           m("a[href='#'].btn", {
-            onclick: App.searchObject().prevPage
+            onclick: app.searchObject().prevPage
           }, "Prev")
         ]),
         m("li", [
@@ -19,12 +21,17 @@ App.Pagination = {
         ]),
         m("li", [
           m("a[href='#'].btn", {
-            onclick: App.searchObject().nextPage
+            onclick: app.searchObject().nextPage
           }, "Next")
         ])
       ])
     } else {
       return m('ul.hide')
     }
+
+    */
+
+    return m('div', 'pagination placeholder')
+
   }
 }
