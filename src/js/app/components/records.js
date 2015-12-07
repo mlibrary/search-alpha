@@ -20,12 +20,10 @@ app.Record = {
   }
 }
 
-app.RecordsArray = []
-
 app.Records = {
   view: function() {
     return m("ul.search-items", [
-      _.map(app.RecordsArray, function(record) {
+      _.map(app.state.currentDatastore().records, function(record) {
         return m.component(app.Record, record)
       })
     ])

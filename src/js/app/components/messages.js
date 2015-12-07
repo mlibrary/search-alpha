@@ -1,5 +1,7 @@
 var app = app || {};
 
+app.messages = [];
+
 app.Message = {
   controller: function(args) {
     return args
@@ -15,8 +17,6 @@ app.Message = {
     ])
   }
 }
-
-app.messages = [];
 
 app.Messages = {
   add: function(message) {

@@ -1,27 +1,34 @@
 var app = app || {};
 
+app.searchInput = m.prop()
+
 app.Search = {
   controller: function() {
     return {
       submit: function() {
-
         var config = {
           count: 10,
           field_tree: new Pride.FieldTree.Field('title', new Pride.FieldTree.Literal(app.searchInput()))
         }
-
         var searchObject = app.state.currentDatastore().searchObject
-        var records = []
+        var array = []
+
         searchObject.set(config).run()
 
         searchObject.addResultsObserver(function(records) {
           _.each(records, function(record) {
-            record.renderPart(function(render) {
-              records.push(render)
-            })
+            if (record) {
+              record.renderPart(function(render) {
+                array.push(render)
+              })
+            }
           })
 
-          app.state.currentDatastore().records = records
+          app.state.currentDatastore().records = array
+
+          app.messages = [] // clear messages
+
+          m.redraw()
         })
 
       } // end of submit func
@@ -46,14 +53,5 @@ app.Search = {
         ])
       ])
     ])
-  }
-}
-
-app.SearchInfo = {
-  view: function() {
-    if (app.state.records.length > 0) {
-      return m(".search-info", "PLACEHOLDER Results")
-    }
-    return m('.search-info', "")
   }
 }

@@ -35,6 +35,12 @@ app.state = {
       console.log('Pride failed to load.')
       // TODO set an error message
     }
+
+    // Messages
+    Pride.Messenger.addObserver(function(message) {
+        app.Messages.add(message);
+    })
+
     NProgress.done() // Pride done
   }
 }
