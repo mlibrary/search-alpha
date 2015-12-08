@@ -28,9 +28,15 @@ app.state = {
 
       search_object.resultsObservers.add(function(results) {
 
+        /*
+        TODO
+        check if results are current datastore,
+        set results, then redraw
+
         if (ds.get('uid') === app.currentDatastore().uid) {
 
         }
+        */
 
         app.results(results())
         console.log(results)
