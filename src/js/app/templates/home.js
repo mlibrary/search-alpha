@@ -38,7 +38,7 @@ app.Home = {
             ])
           ])
         ]),
-        m('script[src="src/lib/pride/initial_setup.js"]'),
+        m('script[async="test"][src="src/lib/pride/initial_setup.js"]'),
         m('script[src="src/lib/pride/settings.js"]'),
         m('script[src="src/js/app/pride_settings.js"]'),
         m('script[src="src/lib/pride/constructors/request_buffer.js"]'),

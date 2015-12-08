@@ -30,15 +30,23 @@ app.Record = {
 app.Records = {
   view: function() {
     return m("ul.search-items", [
+      _.map(app.results(), function(record) {
+        if (record) {
+          var render
 
-      //TODO
-      //if uid matches results uid, render, else skip
+          var render = record.renderFull(function(r) {
+            console.log('=== render ===')
+            console.log(r.names[0])
+            return r
+          })
 
-      /*
-      _.map(app.currentDatastore(), function(record) {
-        return m.component(app.Record, record)
+          console.log(render)
+
+          return m.component(app.Record, render)
+        } else {
+          return m("li")
+        }
       })
-      */
     ])
   }
 }

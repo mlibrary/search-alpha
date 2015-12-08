@@ -25,23 +25,6 @@ app.state = {
 
       datastores.push(ds)
       search_objects.push(search_object)
-
-      search_object.resultsObservers.add(function(results) {
-
-        /*
-        TODO
-        check if results are current datastore,
-        set results, then redraw
-
-        if (ds.get('uid') === app.currentDatastore().uid) {
-
-        }
-        */
-
-        app.results(results())
-        console.log(results)
-        m.redraw()
-      })
     })
 
     app.datastores(datastores)
@@ -52,6 +35,18 @@ app.state = {
       app.search_objects()[0],
       app.search_objects()
     ))
+
+    _.each(app.datastores(), function(ds) {
+      var ds_uid = ds.get('uid')
+
+      app.getSearchObject(ds_uid).resultsObservers.add(function(results) {
+        // Update results to selected datastore
+        if (ds_uid == app.currentDatastore().get('uid')) {
+          app.results(results()) // TODO, this will switch to 'results', not 'results()'
+          m.redraw()
+        }
+      })
+    })
 
     m.redraw()
 
