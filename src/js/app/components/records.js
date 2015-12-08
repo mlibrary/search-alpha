@@ -1,3 +1,10 @@
+// Copyright (c) 2015, Regents of the University of Michigan.
+// All rights reserved. See LICENSE.txt for details.
+
+// Authored by Jon Earley (earleyj@umich.edu)
+
+var app = app || {}
+
 app.Record = {
   controller: function(args) {
     return args
@@ -23,9 +30,15 @@ app.Record = {
 app.Records = {
   view: function() {
     return m("ul.search-items", [
-      _.map(app.state.currentDatastore().records, function(record) {
+
+      //TODO
+      //if uid matches results uid, render, else skip
+
+      /*
+      _.map(app.currentDatastore(), function(record) {
         return m.component(app.Record, record)
       })
+      */
     ])
   }
 }

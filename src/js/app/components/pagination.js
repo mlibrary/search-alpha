@@ -1,19 +1,19 @@
+// Copyright (c) 2015, Regents of the University of Michigan.
+// All rights reserved. See LICENSE.txt for details.
+
+// Authored by Jon Earley (earleyj@umich.edu)
+
+var app = app || {}
+
 app.Pagination = {
   view: function() {
 
     /*
-    var data = app.searchData()
-
     if (data && Number.isInteger(data.page_limit)) {
-
-      console.log('Hello World')
-      console.log(data)
-      console.log(data.page_limit)
-
       return m('ul.pagination', [
         m("li", [
           m("a[href='#'].btn", {
-            onclick: app.searchObject().prevPage
+            onclick: search.prevPage
           }, "Prev")
         ]),
         m("li", [
@@ -21,17 +21,15 @@ app.Pagination = {
         ]),
         m("li", [
           m("a[href='#'].btn", {
-            onclick: app.searchObject().nextPage
+            onclick: search.nextPage
           }, "Next")
         ])
       ])
     } else {
       return m('ul.hide')
     }
-
     */
 
-    return m('div', 'pagination placeholder')
-
+    return m('ul.hide')
   }
 }

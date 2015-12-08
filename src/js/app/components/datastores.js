@@ -1,27 +1,40 @@
+// Copyright (c) 2015, Regents of the University of Michigan.
+// All rights reserved. See LICENSE.txt for details.
+
+// Authored by Jon Earley (earleyj@umich.edu)
+
 var app = app || {};
 
-app.datastores = {
+app.Datastores = {
   controller: function() {
     return {
       selectDatastore: function(e) {
-        app.switchTo(e.dataset.uid)
+        app.search_switcher().switchTo(e.dataset.uid)
       }
     }
   },
   view: function(ctrl) {
     return m("ul.datastores", [
-      _.map(app.state.datastores(), function(ds) {
-
-        if (app.state.currentDatastore().uid == ds.uid ) {
-          return m("li.selected[data-uid='" + ds.uid + "']", {
-            onclick: function(e) { ctrl.selectDatastore(e.target) }
-          }, ds.name)
-        } else {
-          return m("li[data-uid='" + ds.uid + "']", {
-            onclick: function(e) { ctrl.selectDatastore(e.target) }
-          }, ds.name)
+      _.map(app.datastores(), function(ds) {
+        var selected_class = ''
+        if (ds.get('uid') == app.search_switcher().uid) {
+          selected_class = '.selected'
         }
+
+        return m("li" + selected_class + "[data-uid='" + ds.get('uid') + "']", {
+          onclick: function(e) { ctrl.selectDatastore(e.target) }
+        }, ds.get('metadata').name)
       })
     ])
   }
+}
+
+app.currentDatastore = function() {
+  return app.getDatastore(app.search_switcher().uid)
+}
+
+app.getDatastore = function(uid) {
+  return _.find(app.datastores(), function(datastore) {
+    return datastore.get('uid') == uid
+  })
 }

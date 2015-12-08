@@ -1,69 +1,60 @@
+// Copyright (c) 2015, Regents of the University of Michigan.
+// All rights reserved. See LICENSE.txt for details.
+
+// Authored by Jon Earley (earleyj@umich.edu)
+
 var app = app || {};
 
-// state contains all Pride observers
-app.state = {
-  currentDatastore: m.prop({}),
-  datastores: m.prop([]),
+app.datastores = m.prop()
+app.search_objects = m.prop()
+app.search_switcher = m.prop()
+app.results = m.prop()
 
+app.state = {
   init: function() {
     m.route(document, "/", {
       "/": app.Home,
     });
-    NProgress.start() // Pride start
   },
-  initPride: function(success) {
-    if (success) {
+  initPride: function() {
+    var datastores = []
+    var search_objects = []
 
-      // Datastores
-      var array = []
-      Pride.AllDatastores.each(function(ds) {
-        array.push({
-          uid: ds.get('uid'),
-          name: ds.get('metadata').name,
+    Pride.AllDatastores.each(function(ds) {
+      var search_object = Pride.AllDatastores.newSearch(ds.get('uid'))
 
-          // Search object
-          searchObject: Pride.AllDatastores.newSearch(ds.get('uid')),
-          records: []
-        })
+      datastores.push(ds)
+      search_objects.push(search_object)
+
+      search_object.resultsObservers.add(function(results) {
+
+        if (ds.get('uid') === app.currentDatastore().uid) {
+
+        }
+
+        app.results(results())
+        console.log(results)
+        m.redraw()
       })
-      this.datastores(array)
+    })
 
-      app.switchTo('databases')
-      m.redraw()
+    app.datastores(datastores)
+    app.search_objects(search_objects)
 
-    } else {
-      console.log('Pride failed to load.')
-      // TODO set an error message
-    }
+    // Default to first datastore on load
+    app.search_switcher(new Pride.Util.SearchSwitcher(
+      app.search_objects()[0],
+      app.search_objects()
+    ))
 
-    // Messages
+    m.redraw()
+
+    /*
     Pride.Messenger.addObserver(function(message) {
         app.Messages.add(message);
     })
-
-    NProgress.done() // Pride done
+    */
   }
-}
-
-// Utilties
-// TODO: switchTo
-
-app.switchTo = function(uid) {
-  if (typeof uid === "string") {
-    var ds = _.findWhere(app.state.datastores(), {uid: uid})
-
-    if (ds === undefined) {
-      throw "datastore \"" + uid + "\" doesn't exist"
-    } else {
-      app.state.currentDatastore(ds)
-
-      return ds
-    }
-  } else {
-    throw "datastore unique uid is not a string"
-  }
-
-  return undefined
 }
 
 app.state.init()

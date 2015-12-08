@@ -1,6 +1,11 @@
+// Copyright (c) 2015, Regents of the University of Michigan.
+// All rights reserved. See LICENSE.txt for details.
+
+// Authored by Jon Earley (earleyj@umich.edu)
+
 var app = app || {};
 
-app.searchInput = m.prop()
+app.search_input = m.prop()
 
 app.Search = {
   controller: function() {
@@ -8,30 +13,10 @@ app.Search = {
       submit: function() {
         var config = {
           count: 10,
-          field_tree: new Pride.FieldTree.Field('title', new Pride.FieldTree.Literal(app.searchInput()))
+          field_tree: new Pride.FieldTree.Field('title', new Pride.FieldTree.Literal(app.search_input()))
         }
-        var searchObject = app.state.currentDatastore().searchObject
-        var array = []
-
-        searchObject.set(config).run()
-
-        searchObject.addResultsObserver(function(records) {
-          _.each(records, function(record) {
-            if (record) {
-              record.renderPart(function(render) {
-                array.push(render)
-              })
-            }
-          })
-
-          app.state.currentDatastore().records = array
-
-          app.messages = [] // clear messages
-
-          m.redraw()
-        })
-
-      } // end of submit func
+        app.search_switcher().set(config).run()
+      }
     }
   },
   view: function(ctrl) {
@@ -40,7 +25,7 @@ app.Search = {
         m("div", [
           m("input[type='text']#search[placeholder='Search']", {
             oninput: m.withAttr('value', function(value) {
-              app.searchInput(value)
+              app.search_input(value)
             })
           }),
           m.component(app.Fields),
