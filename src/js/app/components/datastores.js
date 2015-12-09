@@ -10,9 +10,6 @@ app.Datastores = {
     return {
       selectDatastore: function(e) {
         app.search_switcher().switchTo(e.dataset.uid)
-
-        console.log('=== switch to ===')
-        console.log(app.search_switcher())
       }
     }
   },

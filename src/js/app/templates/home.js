@@ -40,7 +40,6 @@ app.Home = {
         ]),
         m('script[async="test"][src="src/lib/pride/initial_setup.js"]'),
         m('script[src="src/lib/pride/settings.js"]'),
-        m('script[src="src/js/app/pride_settings.js"]'),
         m('script[src="src/lib/pride/constructors/request_buffer.js"]'),
         m('script[src="src/lib/pride/functions/safe_call.js"]'),
         m('script[src="src/lib/pride/libraries/reqwest.js"]'),
@@ -62,6 +61,7 @@ app.Home = {
         m('script[src="src/lib/pride/functions/deep_clone.js"]'),
         m('script[src="src/lib/pride/functions/escape.js"]'),
         m('script[src="src/lib/pride/constructors/search_switcher.js"]'),
+        m('script[src="src/js/app/pride_settings.js"]'),
         m('script[src="src/js/app/pride.js"]')
       ])
     ])

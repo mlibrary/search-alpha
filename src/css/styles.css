@@ -300,3 +300,6 @@ main {
 .placeholder:not(:last-child) {
   margin-bottom: 1em;
 }
+.placeholder:first-child {
+  width: 75%;
+}
