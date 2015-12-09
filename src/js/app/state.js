@@ -8,7 +8,7 @@ var app = app || {};
 app.datastores = m.prop()
 app.search_objects = m.prop()
 app.search_switcher = m.prop()
-app.results = m.prop()
+app.records = m.prop()
 
 app.state = {
   init: function() {
@@ -40,10 +40,27 @@ app.state = {
       var ds_uid = ds.get('uid')
 
       app.getSearchObject(ds_uid).resultsObservers.add(function(results) {
-        // Update results to selected datastore
+        app.records([]) // reset records
+
         if (ds_uid == app.currentDatastore().get('uid')) {
-          app.results(results()) // TODO, this will switch to 'results', not 'results()'
-          m.redraw()
+          var rendered_records = []
+          _.map(results(), function(record_object) {
+            if (record_object) {
+              record_object.renderFull(function(record) {
+                console.log('=== record ===')
+                console.log(record)
+                console.log(record.type)
+
+                rendered_records.push(record)
+                app.records(rendered_records)
+                m.redraw()
+              })
+            } else {
+              rendered_records.push(undefined)
+              app.records(rendered_records)
+            }
+          })
+
         }
       })
     })

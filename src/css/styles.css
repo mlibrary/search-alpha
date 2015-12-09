@@ -47,8 +47,6 @@ table {
   border-spacing: 0;
 }
 
-
-
 /*  Styles */
 .site-title-container {
   width: 100%;
@@ -63,15 +61,12 @@ h3 {
   font-weight: 700;
   font-size: 1.4em;
 }
-
 body {
   line-height: 1.4;
 }
-
 p {
   margin-bottom: 2em;
 }
-
 body,
 a {
  font-family: "Open Sans";
@@ -153,16 +148,13 @@ form input {
   min-width: 24%;
 }
 @media (max-width: 50em) {
-
   .search {
     width: 100%;
   }
-
   .search form > div {
     padding: 0;
     margin: 0;
   }
-
   .search form > div,
   .search.input[type='text'],
   .search input[type='submit'],
@@ -170,13 +162,11 @@ form input {
     position: inherit;
     width: 100%;
   }
-
   .search select.fields {
     border: solid 1px #666;
     margin: 0.5em 0;
   }
 }
-
 /*
 	Data Stores
 */
@@ -190,34 +180,28 @@ form input {
   cursor: pointer;
   padding: 0.4em 0.6em;
 }
-
 .datastores li.selected {
   background: #444;
   color: white;
 }
-
 /*
 	Search Results
 */
 .search-results-container {
   background: #fff;
 }
-
 .search-items {
   list-style: none;
 }
-
 .search-info,
 .item {
   padding: 2em;
   border-bottom: solid 1px #efefef;
 }
-
 .item {
   overflow: auto;
   line-height: 1.4;
 }
-
 dt {
   float: left;
   clear: left;
@@ -232,12 +216,10 @@ dd {
   margin: 0 0 0 8.5em;
   padding: 0 0 0.5em 0;
 }
-
 main,
 aside {
   margin-bottom: 2em;
 }
-
 aside {
 	width: 18%;
 	float: left;
@@ -247,7 +229,6 @@ main {
 	width: 79%;
 	float: right;
 }
-
 @media (max-width: 50em) {
   aside,
   main {
@@ -288,13 +269,6 @@ main {
   top: 0;
   cursor: pointer;
 }
-.placeholder {
-  display: block;
-  width: 100%;
-  background-color: #999;
-  color: #999;
-}
-
 .pagination {
   text-align: center;
   margin-bottom: 2em;
@@ -313,4 +287,16 @@ main {
 }
 .hide {
   display: none;
+}
+.placeholder {
+  display: block;
+  width: 100%;
+  background-color: #efefef; 
+  min-height: 1.75em;
+}
+.placeholder.tall {
+  min-height: 3em;
+}
+.placeholder:not(:last-child) {
+  margin-bottom: 1em;
 }

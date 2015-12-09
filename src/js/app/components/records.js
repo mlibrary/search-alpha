@@ -12,6 +12,7 @@ app.Record = {
   view: function(ctrl) {
     return m("li.item", [
       m("h3", ctrl.names),
+      m("p", ctrl.type),
       m("dl",
         _.reduce(ctrl.fields, function(memo, field) {
           if ((field.uid != "fullrecord") && (field.uid != "title")) {
@@ -27,24 +28,25 @@ app.Record = {
   }
 }
 
+app.RecordPlaceholder = {
+  view: function() {
+    return m("li.item", [
+      m("div.placeholder.tall"),
+      m("div.placeholder"),
+      m("div.placeholder")
+    ])
+  }
+}
+
 app.Records = {
   view: function() {
     return m("ul.search-items", [
-      _.map(app.results(), function(record) {
+      _.map(app.records(), function(record) {
         if (record) {
-          var render
-
-          var render = record.renderFull(function(r) {
-            console.log('=== render ===')
-            console.log(r.names[0])
-            return r
-          })
-
-          console.log(render)
-
-          return m.component(app.Record, render)
+          return m.component(app.Record, record)
         } else {
-          return m("li")
+          // TODO placholder record for undefined
+          return m.component(app.RecordPlaceholder)
         }
       })
     ])
