@@ -7,6 +7,7 @@ var app = app || {};
 
 app.datastores = m.prop()
 app.search_switcher = m.prop()
+app.results = m.prop()
 
 app.state = {
 
@@ -26,37 +27,33 @@ app.state = {
     Pride.AllDatastores.each(function(datastore) {
       datastores.push(datastore)
       search_objects.push(datastore.baseSearch())
-      m.redraw()
     })
-
-    app.datastores(datastores)
 
     // Add results observers to each search object.
     _.each(search_objects, function(search_object) {
+      search_object.setMute(true)
       search_object.resultsObservers.add(function(results) {
+        console.log('===')
+        console.log(results)
 
-        console.log('=== results observer ===')
-        console.log(search_object)
-
-        app.Records.controller(results())
+        m.redraw()
       })
     })
 
-    // TODO
-    // What datastore should be active on load? Defaults to first for now.
-    // This should be replaced eventually with a default datastore.
     app.search_switcher(new Pride.Util.SearchSwitcher(
       search_objects[0],
       search_objects.slice(1)
     ))
 
-    /*
+    app.datastores(datastores)
+    m.redraw()
+
+    
     // TODO
     // Figure out way to handle messages.
     Pride.Messenger.addObserver(function(message) {
         app.Messages.add(message);
     })
-    */
   }
 }
 

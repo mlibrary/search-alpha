@@ -6,14 +6,7 @@
 var app = app || {};
 
 app.Datastores = {
-  controller: function() {
-    return {
-      selectDatastore: function(e) {
-        app.search_switcher().switchTo(e.dataset.uid)
-      }
-    }
-  },
-  view: function(ctrl) {
+  view: function() {
     return m("ul.datastores", [
       _.map(app.datastores(), function(ds) {
         var selected_class = ''
@@ -22,7 +15,9 @@ app.Datastores = {
         }
 
         return m("li" + selected_class + "[data-uid='" + ds.get('uid') + "']", {
-          onclick: function(e) { ctrl.selectDatastore(e.target) }
+          onclick: function(e) {
+            app.search_switcher().switchTo(e.target.dataset.uid)
+          }
         }, ds.get('metadata').name)
       })
     ])

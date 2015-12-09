@@ -6,25 +6,24 @@
 var app = app || {}
 
 app.Record = {
-  controller: function(record) {
-    var data
+  controller: function(args) {
+    var record = args.record_object
 
-    record.renderPartThenCache(function(raw_data) {
-      data = raw_data
-    })
+    return {
+      getRecordData: function(record) {
+        var data
 
-    // TODO
-    // Render full data
-    // If data is incomplete, then recall itself to 
-    // fill in data
+        record.renderPartThenCache(function(raw_data) {
+          data = raw_data
+        })
 
-    console.log('=== record ===')
-    console.log(data)
-    alert(data)
-
-    return data
+        return data
+      } 
+    }
   },
   view: function(ctrl) {
+    var record_data = ctrl.getRecordData(args.record_object)
+
     return m("li.item", [
       m("h3", ctrl.names),
       m("dl",
@@ -54,18 +53,14 @@ app.RecordPlaceholder = {
 }
 
 app.Records = {
-  controller: function(records) {
-
-    console.log('=== app.Records controller ===')
-    console.log(records)
-
-    return records
-  },
-  view: function(ctrl) {
+  view: function() {
     return m("ul.search-items", [
-      _.each(ctrl.records, function(record) {
+      _.each(app.results(), function(record) {
+
+        console.log(record)
+
         if (record) {
-          return m.component(app.Record, record)
+          return m.component(app.Record, {record_object: record})
         } else {
           return m.component(app.RecordPlaceholder)
         }
