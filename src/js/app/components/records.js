@@ -7,12 +7,10 @@ var app = app || {}
 
 app.Record = {
   controller: function(args) {
-    var record = args.record_object
-
     return {
       getRecordData: function(record) {
         var data
-
+        
         record.renderPartThenCache(function(raw_data) {
           data = raw_data
         })
@@ -21,13 +19,15 @@ app.Record = {
       } 
     }
   },
-  view: function(ctrl) {
-    var record_data = ctrl.getRecordData(args.record_object)
+  view: function(ctrl, args) {
+    var record = ctrl.getRecordData(args.record_object)
+
+    console.log(record)
 
     return m("li.item", [
-      m("h3", ctrl.names),
+      m("h3", record.names[0]),
       m("dl",
-        _.reduce(ctrl.fields, function(memo, field) {
+        _.reduce(record.fields, function(memo, field) {
           if ((field.uid != "fullrecord") && (field.uid != "title")) {
             memo.push(
               m("dt", field.name),
@@ -54,11 +54,12 @@ app.RecordPlaceholder = {
 
 app.Records = {
   view: function() {
+
+    console.log('=== app.Records.view ===')
+    console.log(app.results())
+
     return m("ul.search-items", [
       _.each(app.results(), function(record) {
-
-        console.log(record)
-
         if (record) {
           return m.component(app.Record, {record_object: record})
         } else {

@@ -33,9 +33,7 @@ app.state = {
     _.each(search_objects, function(search_object) {
       search_object.setMute(true)
       search_object.resultsObservers.add(function(results) {
-        console.log('===')
-        console.log(results)
-
+        app.results(results)
         m.redraw()
       })
     })
@@ -48,7 +46,6 @@ app.state = {
     app.datastores(datastores)
     m.redraw()
 
-    
     // TODO
     // Figure out way to handle messages.
     Pride.Messenger.addObserver(function(message) {
@@ -57,4 +54,8 @@ app.state = {
   }
 }
 
-app.state.init()
+window.onload = function() {
+  console.log('init app state')
+
+  app.state.init()
+}
