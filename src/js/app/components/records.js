@@ -32,7 +32,17 @@ app.Records = {
             m("h3", data.names[0]),
             m("dl",
               _.reduce(data.fields, function(memo, field) {
-                if ((field.uid != "fullrecord") && (field.uid != "title")) {
+                if (field.uid == "href") {
+                  console.log(field.name)
+
+                  memo.push(
+                    m("dt", field.name),
+                    m("dd", [
+                      m('a[href="' + field.value + '"]', field.value)
+                    ])
+                  )
+                }
+                else if ((field.uid != "fullrecord") && (field.uid != "title")) {
                   memo.push(
                     m("dt", field.name),
                     m("dd", field.value)
