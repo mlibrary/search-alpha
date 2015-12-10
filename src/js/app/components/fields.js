@@ -5,14 +5,20 @@
 
 var app = app || {};
 
+app.selected_field = m.prop()
+
 app.Fields = {
   view: function() {
     var data = app.metadata()
 
     if (data) {
-      return m("select.fields", [
+      return m("select.fields", {
+        onchange: function(e) {
+          app.selected_field(e.target.value)        }
+      },
+      [
         _.map(data.fields, function(field) {
-          return m("option", field.metadata.name)
+          return m("option[value='" + field.uid + "']", field.metadata.name)
         })
       ])
     }

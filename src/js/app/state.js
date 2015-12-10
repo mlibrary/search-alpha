@@ -51,6 +51,8 @@ app.state = {
       search_objects.slice(1)
     ))
 
+    app.selected_field(app.metadata().fields[0].uid)
+
     app.datastores(datastores)
     m.redraw()
 

@@ -13,7 +13,9 @@ app.Search = {
       submit: function() {
         var config = {
           count: 10,
-          field_tree: new Pride.FieldTree.Field('title', new Pride.FieldTree.Literal(app.search_input()))
+          field_tree: new Pride.FieldTree.Field(
+            app.selected_field(),
+            new Pride.FieldTree.Literal(app.search_input()))
         }
         app.search_switcher().set(config).run()
       }
