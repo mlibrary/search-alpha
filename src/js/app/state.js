@@ -14,7 +14,7 @@ app.state = {
   // Initialize Mithril
 
   init: function() {
-    m.route.mode = "pathname";
+    m.route.mode = "hash";
     m.route(document, "/", {
       "/": app.Home,
     });
