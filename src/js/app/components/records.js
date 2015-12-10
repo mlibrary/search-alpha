@@ -33,8 +33,6 @@ app.Records = {
             m("dl",
               _.reduce(data.fields, function(memo, field) {
                 if (field.uid == "href") {
-                  console.log(field.name)
-
                   memo.push(
                     m("dt", field.name),
                     m("dd", [

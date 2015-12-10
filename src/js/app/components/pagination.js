@@ -7,9 +7,15 @@ var app = app || {}
 
 app.Pagination = {
   view: function() {
+    var data = app.metadata()
+    var search = app.search_switcher()
 
-    /*
     if (data && Number.isInteger(data.page_limit)) {
+
+      if (data.total_available === 0) {
+        return m('p.no-results', 'No results.')
+      }
+
       return m('ul.pagination', [
         m("li", [
           m("a[href='#'].btn", {
@@ -25,10 +31,7 @@ app.Pagination = {
           }, "Next")
         ])
       ])
-    } else {
-      return m('ul.hide')
     }
-    */
 
     return m('ul.hide')
   }

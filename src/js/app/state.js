@@ -8,6 +8,7 @@ var app = app || {};
 app.datastores = m.prop()
 app.search_switcher = m.prop()
 app.results = m.prop()
+app.metadata = m.prop()
 
 app.state = {
 
@@ -36,6 +37,11 @@ app.state = {
       search_object.setMute(true)
       search_object.resultsObservers.add(function(results) {
         app.results(results)
+        m.redraw()
+      })
+
+      search_object.runDataObservers.add(function(data) {
+        app.metadata(data)
         m.redraw()
       })
     })

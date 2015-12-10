@@ -303,3 +303,10 @@ main {
 .placeholder:first-child {
   width: 75%;
 }
+
+.no-results {
+  display: block;
+  padding: 0.4em 0.6em;
+  text-align: center;
+  margin-bottom: 2em;
+}

@@ -7,16 +7,16 @@ var app = app || {};
 
 app.Fields = {
   view: function() {
+    var data = app.metadata()
 
-    /*
-    return m("select.fields", [
-      _.map(app.state.searchData().fields, function(field) {
-        return m("option", field.metadata.name)
-      })
-    ])
-    */
+    if (data && data.hasOwnProperty(fields)) {
+      return m("select.fields", [
+        _.map(data.fields, function(field) {
+          return m("option", field.metadata.name)
+        })
+      ])
+    }
 
-    return m("select")
-
+    return m('select.disabled')
   }
 }
