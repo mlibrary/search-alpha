@@ -9,7 +9,7 @@ app.Fields = {
   view: function() {
     var data = app.metadata()
 
-    if (data && data.hasOwnProperty(fields)) {
+    if (data) {
       return m("select.fields", [
         _.map(data.fields, function(field) {
           return m("option", field.metadata.name)
