@@ -57,7 +57,5 @@ app.state = {
 }
 
 window.onload = function() {
-  console.log('init app state')
-
   app.state.init()
 }
