@@ -13,6 +13,7 @@ app.Search = {
       submit: function() {
         var data = app.metadata()
         var config = {
+          page: 1,
           count: 10,
           field_tree: Pride.FieldTree.parseField(app.selected_field(), app.search_input())
         }
