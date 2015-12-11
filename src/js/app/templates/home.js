@@ -34,6 +34,7 @@ app.Home = {
           m("main", [
             m.component(app.Pagination),
             m(".search-results-container", [
+              m.component(app.SearchInfo),
               m.component(app.Records)
             ])
           ])

@@ -13,7 +13,6 @@ app.metadata = m.prop()
 app.state = {
 
   // Initialize Mithril
-
   init: function() {
     m.route.mode = "hash";
     m.route(document, "/", {
@@ -37,6 +36,11 @@ app.state = {
       search_object.setMute(true)
       search_object.resultsObservers.add(function(results) {
         app.results(results)
+        m.redraw()
+      })
+
+      search_object.setDataObservers.add(function(data) {
+        app.metadata(data)
         m.redraw()
       })
 

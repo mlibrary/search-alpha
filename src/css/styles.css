@@ -194,13 +194,18 @@ form input {
   list-style: none;
 }
 .search-info,
-.item {
+.item,
+.search-details {
   padding: 2em;
   border-bottom: solid 1px #efefef;
 }
-.item {
+.item,
+.search-details {
   overflow: auto;
   line-height: 1.4;
+}
+.search-details {
+  margin-bottom: 0;
 }
 dt {
   float: left;
@@ -216,6 +221,16 @@ dd {
   margin: 0 0 0 8.5em;
   padding: 0 0 0.5em 0;
 }
+@media (max-width: 50em) {
+  dd {
+    margin: 0;
+  }
+  dt {
+    float: none;
+    text-align: left;
+    width: auto;
+  }
+}
 main,
 aside {
   margin-bottom: 2em;
@@ -223,7 +238,6 @@ aside {
 aside {
 	width: 18%;
 	float: left;
-  padding-right: 3%;
 }
 main {
 	width: 79%;
@@ -303,10 +317,12 @@ main {
 .placeholder:first-child {
   width: 75%;
 }
-
 .no-results {
   display: block;
   padding: 0.4em 0.6em;
   text-align: center;
   margin-bottom: 2em;
+}
+b {
+  font-weight: bold;
 }

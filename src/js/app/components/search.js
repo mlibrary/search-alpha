@@ -13,9 +13,7 @@ app.Search = {
       submit: function() {
         var config = {
           count: 10,
-          field_tree: new Pride.FieldTree.Field(
-            app.selected_field(),
-            new Pride.FieldTree.Literal(app.search_input()))
+          field_tree: Pride.FieldTree.parseField(app.selected_field(), app.search_input())
         }
         app.search_switcher().set(config).run()
       }
@@ -27,6 +25,7 @@ app.Search = {
         m("div", [
           m("input[type='text']#search[placeholder='Search']", {
             oninput: m.withAttr('value', function(value) {
+              m.redraw.strategy("none")
               app.search_input(value)
             })
           }),
@@ -47,4 +46,24 @@ app.getSearchObject = function(uid) {
   return _.find(app.search_objects(), function(search_object) {
     return search_object.uid == uid
   })
+}
+
+app.SearchInfo = {
+  view: function() {
+    var data = app.metadata()
+
+    var range = ''
+
+    if (data) {
+      if (data.total_available > 0) {
+        return m("p.search-details", app.metadata().total_available + " results")
+      } else if (data.total_available !== undefined) {
+        var message = "Your search <b>- " + app.search_input() + " -</b> has no results."
+        return m("p.search-details", m.trust(message))
+      }
+    }
+
+    return m("p.hide")
+   
+  }
 }
