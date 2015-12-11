@@ -29,21 +29,21 @@ app.Records = {
           })
 
           return m("li.item", [
-            m("h3", data.names[0]),
+            m("h3", m.trust(data.names[0])),
             m("dl",
               _.reduce(data.fields, function(memo, field) {
                 if (field.uid == "href") {
                   memo.push(
-                    m("dt", field.name),
+                    m("dt", m.trust(field.name)),
                     m("dd", [
-                      m('a[href="' + field.value + '"]', field.value)
+                      m('a[href="' + field.value + '"]', m.trust(field.value))
                     ])
                   )
                 }
                 else if ((field.uid != "fullrecord") && (field.uid != "title")) {
                   memo.push(
-                    m("dt", field.name),
-                    m("dd", field.value)
+                    m("dt", m.trust(field.name)),
+                    m("dd", m.trust(field.value))
                   )
                 }
                 return memo
