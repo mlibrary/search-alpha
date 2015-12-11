@@ -10,7 +10,7 @@ app.Pagination = {
     var data = app.metadata()
     var search = app.search_switcher()
 
-    if (data && Number.isInteger(data.page_limit) && data.page_limit != 0) {
+    if (data && Number.isInteger(data.page_limit) && data.page_limit > 1) {
 
       return m('ul.pagination', [
         m("li", [

@@ -11,6 +11,7 @@ app.Search = {
   controller: function() {
     return {
       submit: function() {
+        var data = app.metadata()
         var config = {
           count: 10,
           field_tree: Pride.FieldTree.parseField(app.selected_field(), app.search_input())
@@ -52,8 +53,6 @@ app.SearchInfo = {
   view: function() {
     var data = app.metadata()
 
-    var range = ''
-
     if (data) {
       if (data.total_available > 0) {
         return m("p.search-details", app.metadata().total_available + " results")
@@ -64,6 +63,5 @@ app.SearchInfo = {
     }
 
     return m("p.hide")
-   
   }
 }

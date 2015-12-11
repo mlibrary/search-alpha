@@ -14,7 +14,9 @@ app.Fields = {
     if (data) {
       return m("select.fields", {
         onchange: function(e) {
-          app.selected_field(e.target.value)        }
+          m.redraw.strategy("none")
+          app.selected_field(e.target.value)
+        }
       },
       [
         _.map(data.fields, function(field) {
