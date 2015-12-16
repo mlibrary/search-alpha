@@ -58,7 +58,7 @@ app.SearchInfo = {
       if (data.total_available > 0) {
         return m("p.search-details", app.metadata().total_available + " results")
       } else if (data.total_available !== undefined) {
-        var message = "Your search <b>- " + app.search_input() + " -</b> has no results."
+        var message = "No results found matching <b>" + app.search_input() + "</b>."
         return m("p.search-details", m.trust(message))
       }
     }

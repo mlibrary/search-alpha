@@ -169,17 +169,17 @@ form input {
 /*
 	Data Stores
 */
-.datastores {
+.searchables {
   padding: 0;
   margin: 0;
   list-style: none;
   margin-bottom: 2em;
 }
-.datastores li {
+.searchables li {
   cursor: pointer;
   padding: 0.4em 0.6em;
 }
-.datastores li.selected {
+.searchables li.selected {
   background: #444;
   color: white;
 }

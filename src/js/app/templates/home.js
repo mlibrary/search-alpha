@@ -29,7 +29,7 @@ app.Home = {
         ]),
         m(".container", [
           m("aside", [
-            m.component(app.Datastores)
+            m.component(app.Searchables)
           ]),
           m("main", [
             m.component(app.Pagination),

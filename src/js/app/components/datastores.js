@@ -5,31 +5,32 @@
 
 var app = app || {};
 
-app.Datastores = {
+app.Searchables = {
   view: function() {
-    return m("ul.datastores", [
-      _.map(app.datastores(), function(ds) {
+    return m("ul.searchables", [
+      _.map(app.searchables(), function(searchable) {
         var selected_class = ''
-        if (ds.get('uid') == app.search_switcher().uid) {
+
+        if (searchable.uid == app.search_switcher().uid) {
           selected_class = '.selected'
         }
 
-        return m("li" + selected_class + "[data-uid='" + ds.get('uid') + "']", {
+        return m("li" + selected_class + "[data-uid='" + searchable.uid + "']", {
           onclick: function(e) {
             app.search_switcher().switchTo(e.target.dataset.uid)
           }
-        }, ds.get('metadata').name)
+        }, searchable.name)
       })
     ])
   }
 }
 
-app.currentDatastore = function() {
-  return app.getDatastore(app.search_switcher().uid)
+app.currentSearchable = function() {
+  return app.getSearchable(app.search_switcher().uid)
 }
 
-app.getDatastore = function(uid) {
-  return _.find(app.datastores(), function(datastore) {
-    return datastore.get('uid') == uid
+app.getSearchable = function(uid) {
+  return _.find(app.searchables(), function(searchable) {
+    return searchable.get('uid') == uid
   })
 }
