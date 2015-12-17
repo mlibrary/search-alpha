@@ -8,10 +8,28 @@ var app = app || {};
 app.selected_field = m.prop()
 
 app.Fields = {
-  view: function() {
-    var data = app.metadata()
+  controller: function() {
+    return {
+      getMetadata: function() {
+        var data = app.data()
+        var uid
 
-    if (data) {
+        if (app.search_switcher()) {
+          uid = app.search_switcher().uid
+
+          if (data[uid]) {
+            return data[uid].metadata
+          }
+        }
+
+        return undefined
+      }
+    }
+  },
+  view: function(ctrl) {
+    var metadata = ctrl.getMetadata()
+
+    if (metadata) {
       return m("select.fields", {
         onchange: function(e) {
           m.redraw.strategy("none")
@@ -19,7 +37,7 @@ app.Fields = {
         }
       },
       [
-        _.map(data.fields, function(field) {
+        _.map(metadata.fields, function(field) {
           return m("option[value='" + field.uid + "']", field.metadata.name)
         })
       ])

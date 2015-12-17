@@ -11,7 +11,6 @@ app.Search = {
   controller: function() {
     return {
       submit: function() {
-        var data = app.metadata()
         var config = {
           page: 1,
           count: 10,
@@ -45,13 +44,31 @@ app.Search = {
 }
 
 app.SearchInfo = {
-  view: function() {
-    var data = app.metadata()
+  controller: function() {
+    return {
+      getMetadata: function() {
+        var data = app.data()
+        var uid
 
-    if (data) {
-      if (data.total_available > 0) {
-        return m("p.search-details", app.metadata().total_available + " results")
-      } else if (data.total_available !== undefined) {
+        if (app.search_switcher()) {
+          uid = app.search_switcher().uid
+
+          if (data[uid]) {
+            return data[uid].metadata
+          }
+        }
+
+        return undefined
+      }
+    }
+  },
+  view: function(ctrl) {
+    var metadata = ctrl.getMetadata()
+
+    if (metadata) {
+      if (metadata.total_available > 0) {
+        return m("p.search-details", metadata.total_available + " results")
+      } else if (metadata.total_available !== undefined) {
         var message = "No results found matching <b>" + app.search_input() + "</b>."
         return m("p.search-details", m.trust(message))
       }

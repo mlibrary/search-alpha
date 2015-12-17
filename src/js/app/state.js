@@ -38,7 +38,6 @@ app.data = {
 */
 
 app.data = m.prop()
-app.metadata = m.prop()
 
 app.state = {
 
@@ -90,13 +89,41 @@ app.state = {
         m.redraw()
       })
 
-      search_object.setDataObservers.add(function(data) {
-        app.metadata(data)
+      search_object.setDataObservers.add(function(metadata) {
+        var data = app.data()
+
+        if (!data) {
+          data = {}
+        }
+
+        if (data[search_object.uid]) {
+          data[search_object.uid]['metadata'] = metadata
+        } else {
+          data[search_object.uid] = {}
+          data[search_object.uid]['metadata'] = metadata
+        }
+
+        app.data(data)
+
         m.redraw()
       })
 
-      search_object.runDataObservers.add(function(data) {
-        app.metadata(data)
+      search_object.runDataObservers.add(function(metadata) {
+        var data = app.data()
+
+        if (!data) {
+          data = {}
+        }
+
+        if (data[search_object.uid]) {
+          data[search_object.uid]['metadata'] = metadata
+        } else {
+          data[search_object.uid] = {}
+          data[search_object.uid]['metadata'] = metadata
+        }
+
+        app.data(data)
+
         m.redraw()
       })
     })
@@ -119,7 +146,7 @@ app.state = {
       search_objects.slice(1)
     ))
 
-    app.selected_field(app.metadata().fields[0].uid)
+    app.selected_field('mirlyn') // temp
 
     app.searchables(searchables)
     m.redraw()

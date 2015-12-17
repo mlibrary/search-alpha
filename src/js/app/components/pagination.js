@@ -6,11 +6,29 @@
 var app = app || {}
 
 app.Pagination = {
-  view: function() {
-    var data = app.metadata()
+  controller: function() {
+    return {
+      getMetadata: function() {
+        var data = app.data()
+        var uid
+
+        if (app.search_switcher()) {
+          uid = app.search_switcher().uid
+
+          if (data[uid]) {
+            return data[uid].metadata
+          }
+        }
+
+        return undefined
+      }
+    }
+  },
+  view: function(ctrl) {
+    var metadata = ctrl.getMetadata()
     var search = app.search_switcher()
 
-    if (data && Number.isInteger(data.page_limit) && data.page_limit > 1) {
+    if (metadata && Number.isInteger(metadata.page_limit) && metadata.page_limit > 1) {
 
       return m('ul.pagination', [
         m("li", [
@@ -19,7 +37,7 @@ app.Pagination = {
           }, "Prev")
         ]),
         m("li", [
-          m("a[href='#']", "Page " + data.page + " of " + data.page_limit)
+          m("a[href='#']", "Page " + metadata.page + " of " + metadata.page_limit)
         ]),
         m("li", [
           m("a[href='#'].btn", {
