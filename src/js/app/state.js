@@ -7,7 +7,37 @@ var app = app || {};
 
 app.searchables = m.prop()
 app.search_switcher = m.prop()
-app.results = m.prop()
+
+/*
+
+app.data = {
+  mirlyn: {
+    records: {},
+    data: {}
+  }, // regular datastore
+  databases: {
+    records: {},
+    data: {}
+  },
+  staff: {
+    records: {},
+    data: {}
+  },
+  quicksearch: { // multisearch example
+    mirlyn: {
+      records: {},
+      data: {}
+    },
+    databases: {
+      records: {},
+      data: {}
+    }
+  }
+}
+ 
+*/
+
+app.data = m.prop()
 app.metadata = m.prop()
 
 app.state = {
@@ -25,22 +55,38 @@ app.state = {
     var searchables = []
     var search_objects = []
 
-    var quicksearch
+    _.each(app.settings.datastores, function(ds) {
+      var datastore = app.getDatastore(ds)
 
-    // Store all datastores as searchables and create a search object for each datastore.
-    Pride.AllDatastores.each(function(datastore) {
-      searchables.push({
-        uid: datastore.get('uid'),
-        name: datastore.get('metadata').name
-      })
-      search_objects.push(datastore.baseSearch())
+      if (datastore) {
+        searchables.push({
+          uid: datastore.get('uid'),
+          name: datastore.get('metadata').name
+        })
+
+        search_objects.push(datastore.baseSearch())
+      }
     })
 
     // Add results observers to each search object.
     _.each(search_objects, function(search_object) {
       search_object.setMute(true)
-      search_object.resultsObservers.add(function(results) {
-        app.results(results)
+      search_object.resultsObservers.add(function(records) {
+        var data = app.data()
+
+        if (!data) {
+          data = {}
+        }
+
+        if (data[search_object.uid]) {
+          data[search_object.uid]['records'] = records
+        } else {
+          data[search_object.uid] = {}
+          data[search_object.uid]['records'] = records
+        }
+
+        app.data(data)
+
         m.redraw()
       })
 
@@ -55,15 +101,18 @@ app.state = {
       })
     })
 
-    // Create quick search and add it to search objects
-    var quicksearch = app.createMultiSearch(
-      'quicksearch',
-      ['mirlyn', 'journals', 'databases', 'website'],
-      searchables,
-      search_objects
-    )
+    _.each(app.settings.multisearches, function(ms) {
+      var multisearch = app.createMultiSearch(ms)
 
-    //search_objects.push(quicksearch)
+      if (multisearch) {
+        search_objects.push(multisearch)
+
+        searchables.push({
+          uid: ms.uid,
+          name: ms.name
+        })
+      }
+    })
 
     app.search_switcher(new Pride.Util.SearchSwitcher(
       search_objects[0],
@@ -86,21 +135,49 @@ window.onload = function() {
   app.state.init()
 }
 
-app.createMultiSearch = function(uid, multisearch_datastores, searchables, search_objects) {
-  var multisearch_array = []
-  var multisearch
+app.createMultiSearch = function(ms) {
+  var is_valid = false
+  var ms_search_array = []
 
-  _.each(searchables, function(searchable) {
-    var ds_uid = searchable.uid
+  _.each(ms.datastores, function(ds_uid) {
+    var ds = app.getDatastore(ds_uid)
+    if (ds) {
+      var search_object = ds.baseSearch()
 
-    if (multisearch_datastores.includes(ds_uid)) {
-      //multisearch_array.push(datastore.baseSearch())
+      ms_search_array.push(search_object)
+      is_valid = true
     }
   })
 
-  if (multisearch_array.length) {
-    multisearch = new Pride.Util.MultiSearch(uid, true, multisearch_array)
+  _.each(ms_search_array, function(search_object) {
+
+    search_object.resultsObservers.add(function(results) {
+      /*
+      console.log('=== results observer ===')
+      console.log(ms.uid)
+      console.log(search_object.uid)
+      console.log(results)
+      console.log('===')
+      */
+    })
+  })
+
+  if (is_valid) {
+    return new Pride.Util.MultiSearch(ms.uid, true, ms_search_array)
+  } else {
+    return false
   }
 
-  return multisearch
+}
+
+app.getDatastore = function(uid) {
+  var is_datastore = false
+
+  Pride.AllDatastores.each(function(ds) {
+    if (uid == ds.get('uid')) {
+      is_datastore = ds
+    }
+  })
+
+  return is_datastore
 }

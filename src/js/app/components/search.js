@@ -44,12 +44,6 @@ app.Search = {
   }
 }
 
-app.getSearchObject = function(uid) {
-  return _.find(app.search_objects(), function(search_object) {
-    return search_object.uid == uid
-  })
-}
-
 app.SearchInfo = {
   view: function() {
     var data = app.metadata()

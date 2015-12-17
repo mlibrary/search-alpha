@@ -31,6 +31,6 @@ app.currentSearchable = function() {
 
 app.getSearchable = function(uid) {
   return _.find(app.searchables(), function(searchable) {
-    return searchable.get('uid') == uid
+    return searchable.uid == uid
   })
 }
