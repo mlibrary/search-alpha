@@ -29,6 +29,12 @@ app.Fields = {
   view: function(ctrl) {
     var metadata = ctrl.getMetadata()
 
+    if (app.isMultisearch()) {
+      return m("select.fields", [
+        m("option[value='title']", "Title")
+      ])
+    }
+
     if (metadata) {
       return m("select.fields", {
         onchange: function(e) {

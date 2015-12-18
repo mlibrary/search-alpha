@@ -59,7 +59,7 @@ table {
 h3 {
   margin-bottom: 1em;
   font-weight: 700;
-  font-size: 1.4em;
+  font-size: 1.3em;
 }
 body {
   line-height: 1.4;
@@ -235,6 +235,17 @@ dd {
 /*
   Multisearch Results
 */
+.multisearch h2 {
+  background: #444;
+  color: #fff;
+  padding: 1em;
+  font-size: 1.4em;
+  font-weight: 700;
+}
+.multisearch h2:not(:first-child) {
+  margin-top: 2em;
+}
+/*
 .multisearch dd {
   margin: 0;
 }
@@ -243,6 +254,8 @@ dd {
   text-align: left;
   width: auto;
 }
+*/
+
 
 
 main,

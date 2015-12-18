@@ -16,10 +16,10 @@ app.settings = {
     'guides',
     'mirlyn-disserations',
     'database-videos',
-    //'dlps',
-    //'ask-librarian',
+    'dlps',
+    'ask-librarian',
     'staff',
-    //'events'
+    'events'
   ],
   multisearches: [
     {

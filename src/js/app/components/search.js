@@ -11,6 +11,8 @@ app.Search = {
   controller: function() {
     return {
       submit: function() {
+        var count = 10
+
         var config = {
           page: 1,
           count: 10,

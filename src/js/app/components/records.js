@@ -53,15 +53,22 @@ app.Records = {
       var data = app.data()
       var datastores = data[uid].datastores
 
-      _.map(datastores, function(datastore) {
-        if (datastore.records) {
-          return m("ul.search-items", [
-            _.map(datastore.records, function(record) {
-              return m.component(app.Record, {record: record})
-            })
-          ])
-        }
-      })
+      return m('.multisearch', [
+        _.map(datastores, function(datastore, ds_uid) {
+          if (datastore.records.length > 0) {
+            var datastore_name = app.getDatastore(ds_uid).get('metadata').name
+
+            return m("div", [
+              m("h2", datastore_name),
+                m("ul.search-items", [
+                _.map(datastore.records, function(record) {
+                  return m.component(app.Record, {record: record})
+                })
+              ])
+            ])
+          }
+        })
+      ])
 
       return m("ul.hide")
     } else {
@@ -117,12 +124,4 @@ app.Record = {
       return m.component(app.RecordPlaceholder)
     }
   }
-}
-
-app.isMultisearch = function(uid) {
-  if (app.data() && app.data()[uid] && app.data()[uid].is_multisearch) {
-    return true
-  }
-
-  return false
 }

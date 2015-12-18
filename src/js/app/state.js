@@ -7,36 +7,6 @@ var app = app || {};
 
 app.searchables = m.prop()
 app.search_switcher = m.prop()
-
-/*
-
-app.data = {
-  mirlyn: {
-    records: {},
-    data: {}
-  }, // regular datastore
-  databases: {
-    records: {},
-    data: {}
-  },
-  staff: {
-    records: {},
-    data: {}
-  },
-  quicksearch: { // multisearch example
-    mirlyn: {
-      records: {},
-      data: {}
-    },
-    databases: {
-      records: {},
-      data: {}
-    }
-  }
-}
- 
-*/
-
 app.data = m.prop()
 
 app.state = {
@@ -107,8 +77,8 @@ app.state = {
     m.redraw()
 
     Pride.Messenger.addObserver(function(message) {
-        app.Messages.add(message);
-        m.redraw()
+      app.Messages.add(message);
+      m.redraw()
     })
   }
 }
@@ -190,4 +160,20 @@ app.setObservers = function(searchable_uid, observer_data, type, multisearch) {
   app.data(data)
 
   m.redraw()
+}
+
+app.isMultisearch = function(uid) {
+  if (!uid) {
+    if (app.search_switcher()) {
+      uid = app.search_switcher().uid
+    } else {
+      return undefined
+    }
+  }
+
+  if (app.data() && app.data()[uid] && app.data()[uid].is_multisearch) {
+    return true
+  }
+
+  return false
 }
