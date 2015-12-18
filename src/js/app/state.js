@@ -70,61 +70,16 @@ app.state = {
     // Add results observers to each search object.
     _.each(search_objects, function(search_object) {
       search_object.setMute(true)
-      search_object.resultsObservers.add(function(records) {
-        var data = app.data()
-
-        if (!data) {
-          data = {}
-        }
-
-        if (data[search_object.uid]) {
-          data[search_object.uid]['records'] = records
-        } else {
-          data[search_object.uid] = {}
-          data[search_object.uid]['records'] = records
-        }
-
-        app.data(data)
-
-        m.redraw()
+      search_object.resultsObservers.add(function(data) {
+        app.setObservers(search_object.uid, data, 'records')
       })
 
-      search_object.setDataObservers.add(function(metadata) {
-        var data = app.data()
-
-        if (!data) {
-          data = {}
-        }
-
-        if (data[search_object.uid]) {
-          data[search_object.uid]['metadata'] = metadata
-        } else {
-          data[search_object.uid] = {}
-          data[search_object.uid]['metadata'] = metadata
-        }
-
-        app.data(data)
-
-        m.redraw()
+      search_object.setDataObservers.add(function(data) {
+        app.setObservers(search_object.uid, data, 'metadata')
       })
 
-      search_object.runDataObservers.add(function(metadata) {
-        var data = app.data()
-
-        if (!data) {
-          data = {}
-        }
-
-        if (data[search_object.uid]) {
-          data[search_object.uid]['metadata'] = metadata
-        } else {
-          data[search_object.uid] = {}
-          data[search_object.uid]['metadata'] = metadata
-        }
-
-        app.data(data)
-
-        m.redraw()
+      search_object.runDataObservers.add(function(data) {
+        app.setObservers(search_object.uid, data, 'metadata')
       })
     })
 
@@ -177,15 +132,16 @@ app.createMultiSearch = function(ms) {
   })
 
   _.each(ms_search_array, function(search_object) {
+    search_object.resultsObservers.add(function(records) {
+      app.setObservers(search_object.uid, records, 'records', ms)
+    })
 
-    search_object.resultsObservers.add(function(results) {
-      /*
-      console.log('=== results observer ===')
-      console.log(ms.uid)
-      console.log(search_object.uid)
-      console.log(results)
-      console.log('===')
-      */
+    search_object.setDataObservers.add(function(data) {
+      app.setObservers(search_object.uid, data, 'metadata', ms)
+    })
+
+    search_object.runDataObservers.add(function(data) {
+      app.setObservers(search_object.uid, data, 'metadata', ms)
     })
   })
 
@@ -207,4 +163,31 @@ app.getDatastore = function(uid) {
   })
 
   return is_datastore
+}
+
+/*
+  uid:           datastore uid
+  observer_data: observer results/data
+  type:          "records" or "metadata"
+  multisearch:   true or false
+*/
+app.setObservers = function(searchable_uid, observer_data, type, multisearch) {
+  var data = app.data()
+  var path = searchable_uid + "." + type
+
+  if (!data) {
+    data = {}
+  }
+
+  if (multisearch) {
+    path = multisearch.uid + ".datastores." + searchable_uid + "." + type
+    setValue(data, multisearch.uid + ".is_multisearch", true)
+  } else {
+    setValue(data, searchable_uid + ".is_multisearch", false)
+  }
+
+  setValue(data, path, observer_data)
+  app.data(data)
+
+  m.redraw()
 }

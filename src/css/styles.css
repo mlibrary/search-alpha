@@ -187,16 +187,18 @@ form input {
 	Search Results
 */
 .search-results-container {
-  background: #fff;
+
 }
 .search-items {
   list-style: none;
+  background: #fff;
 }
 .search-info,
 .item,
 .search-details {
   padding: 2em;
   border-bottom: solid 1px #efefef;
+  background: #fff;
 }
 .item,
 .search-details {
@@ -230,6 +232,19 @@ dd {
     width: auto;
   }
 }
+/*
+  Multisearch Results
+*/
+.multisearch dd {
+  margin: 0;
+}
+.multisearch dt {
+  float: none;
+  text-align: left;
+  width: auto;
+}
+
+
 main,
 aside {
   margin-bottom: 2em;

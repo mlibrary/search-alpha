@@ -27,8 +27,19 @@ app.Records = {
           uid = app.search_switcher().uid
 
           if (data[uid]) {
-            return data[uid].records
+            if (data[uid].records) {
+              return data[uid].records
+            } else { // Multisearch
+              return data[uid]
+            }
           }
+        }
+
+        return undefined
+      },
+      getUid: function() {
+        if (app.search_switcher()) {
+          return app.search_switcher().uid
         }
 
         return undefined
@@ -36,48 +47,82 @@ app.Records = {
     }
   },
   view: function(ctrl) {
+    var uid = ctrl.getUid()
 
-    var records = ctrl.getRecords()
+    if (app.isMultisearch(uid)) {
+      var data = app.data()
+      var datastores = data[uid].datastores
 
-    if (records) {
-      return m("ul.search-items", [
-        _.map(records, function(record) {
-          if (record) {
-            var data
-
-            record.renderPart(function(raw_data) {
-              data = raw_data
+      _.map(datastores, function(datastore) {
+        if (datastore.records) {
+          return m("ul.search-items", [
+            _.map(datastore.records, function(record) {
+              return m.component(app.Record, {record: record})
             })
+          ])
+        }
+      })
 
-            return m("li.item", [
-              m("h3", m.trust(data.names[0])),
-              m("dl",
-                _.reduce(data.fields, function(memo, field) {
-                  if (field.uid == "href") {
-                    memo.push(
-                      m("dt", m.trust(field.name)),
-                      m("dd", [
-                        m('a[href="' + field.value + '"]', m.trust(field.value))
-                      ])
-                    )
-                  }
-                  else if ((field.uid != "fullrecord") && (field.uid != "title")) {
-                    memo.push(
-                      m("dt", m.trust(field.name)),
-                      m("dd", m.trust(field.value))
-                    )
-                  }
-                  return memo
-                }, [])
-              )
-            ])
-          } else {
-            return m.component(app.RecordPlaceholder)
-          }
-        })
-      ])
+      return m("ul.hide")
     } else {
+      var records = ctrl.getRecords()
+
+      if (records) {
+        return m("ul.search-items", [
+          _.map(records, function(record) {
+            return m.component(app.Record, {record: record})
+          })
+        ])
+      }
+
       return m("ul.hide")
     }
   }
+}
+
+app.Record = {
+  view: function(ctrl, args) {
+    var record = args.record
+
+    if (record) {
+      var data
+
+      record.renderPart(function(raw_data) {
+        data = raw_data
+      })
+
+      return m("li.item", [
+        m("h3", m.trust(data.names[0])),
+        m("dl",
+          _.reduce(data.fields, function(memo, field) {
+            if (field.uid == "href") {
+              memo.push(
+                m("dt", m.trust(field.name)),
+                m("dd", [
+                  m('a[href="' + field.value + '"]', m.trust(field.value))
+                ])
+              )
+            }
+            else if ((field.uid != "fullrecord") && (field.uid != "title")) {
+              memo.push(
+                m("dt", m.trust(field.name)),
+                m("dd", m.trust(field.value))
+              )
+            }
+            return memo
+          }, [])
+        )
+      ])
+    } else {
+      return m.component(app.RecordPlaceholder)
+    }
+  }
+}
+
+app.isMultisearch = function(uid) {
+  if (app.data() && app.data()[uid] && app.data()[uid].is_multisearch) {
+    return true
+  }
+
+  return false
 }
