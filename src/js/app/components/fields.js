@@ -44,7 +44,11 @@ app.Fields = {
       },
       [
         _.map(metadata.fields, function(field) {
-          return m("option[value='" + field.uid + "']", field.metadata.name)
+          if (field.uid == app.selected_field()) {
+            return m("option[selected][value='" + field.uid + "']", field.metadata.name)
+          } else {
+            return m("option[value='" + field.uid + "']", field.metadata.name)
+          }
         })
       ])
     }

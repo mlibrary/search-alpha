@@ -71,7 +71,7 @@ app.state = {
       search_objects.slice(1)
     ))
 
-    app.selected_field('mirlyn') // temp
+    app.selected_field('title') // temp, replace with first field
 
     app.searchables(searchables)
     m.redraw()
