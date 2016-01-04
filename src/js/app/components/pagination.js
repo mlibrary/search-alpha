@@ -12,6 +12,7 @@ app.Pagination = {
         var data = app.data()
         var uid
 
+        // If the search switcher object is not undefined
         if (app.search_switcher()) {
           uid = app.search_switcher().uid
 
@@ -28,6 +29,8 @@ app.Pagination = {
     var metadata = ctrl.getMetadata()
     var search = app.search_switcher()
 
+    // Only show pagionation if metadata (# of results, etc) exists,
+    // the page limit is set to a number, and the page limit is greater than 1.
     if (metadata && Number.isInteger(metadata.page_limit) && metadata.page_limit > 1) {
 
       return m('ul.pagination', [

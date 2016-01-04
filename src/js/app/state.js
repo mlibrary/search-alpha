@@ -17,6 +17,8 @@ app.state = {
     m.route(document, "/", {
       "/": app.Home,
     });
+
+    NProgress.start()
   },
 
   // Initialize Pride and related components.
