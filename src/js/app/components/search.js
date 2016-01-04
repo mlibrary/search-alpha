@@ -18,6 +18,8 @@ app.Search = {
           count: 10,
           field_tree: Pride.FieldTree.parseField(app.selected_field(), app.search_input())
         }
+
+        app.search_switcher().set(config).run()
       }
     }
   },
