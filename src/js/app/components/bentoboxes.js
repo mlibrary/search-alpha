@@ -7,6 +7,6 @@ var app = app || {};
 
 app.BentoBoxes = {
   view: function() {
-
+    
   }
 }

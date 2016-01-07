@@ -202,7 +202,7 @@ form input {
 }
 .item,
 .search-details {
-  overflow: auto;
+  overflow: hidden;
   line-height: 1.4;
 }
 .search-details {
@@ -245,7 +245,6 @@ dd {
 .multisearch h2:not(:first-child) {
   margin-top: 2em;
 }
-/*
 .multisearch dd {
   margin: 0;
 }
@@ -254,7 +253,6 @@ dd {
   text-align: left;
   width: auto;
 }
-*/
 
 
 
@@ -352,4 +350,20 @@ main {
 }
 b {
   font-weight: bold;
+}
+
+/*
+  Bento Box / Multisearch
+*/
+.multisearch {
+  display: flex;
+  flex-wrap: wrap;
+  margin: -1rem 0 0 -1rem;
+}
+
+.multisearch .datastore {
+  display: inline-block;
+  flex-grow: 1;
+  margin: 1rem 0 0 1rem;
+  width: calc(100% * (1/2) - 1rem);
 }

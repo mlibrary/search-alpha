@@ -13,9 +13,15 @@ app.Search = {
       submit: function() {
         NProgress.start()
 
+        var count = 10;
+
+        if (app.isMultisearch()) {
+          count = 3;
+        }
+
         var config = {
           page: 1,
-          count: 10,
+          count: count,
           field_tree: Pride.FieldTree.parseField(app.selected_field(), app.search_input())
         }
 

@@ -18,6 +18,11 @@ app.Searchables = {
         return m("li" + selected_class + "[data-uid='" + searchable.uid + "']", {
           onclick: function(e) {
             app.search_switcher().switchTo(e.target.dataset.uid)
+
+            // TODO
+            // When switching to a Multisearch (e.g. Quick Search),
+            // the config count should be set to 3.
+            
           }
         }, searchable.name)
       })

@@ -58,8 +58,9 @@ app.Records = {
           if (datastore.records.length > 0) {
             var datastore_name = app.getDatastore(ds_uid).get('metadata').name
 
-            return m("div", [
+            return m("div.datastore", [
               m("h2", datastore_name),
+              m.component(app.SearchInfo),
                 m("ul.search-items", [
                 _.map(datastore.records, function(record) {
                   return m.component(app.Record, {record: record})
@@ -76,6 +77,7 @@ app.Records = {
 
       if (records) {
         return m("ul.search-items", [
+          m.component(app.SearchInfo),
           _.map(records, function(record) {
             return m.component(app.Record, {record: record})
           })
@@ -111,8 +113,7 @@ app.Record = {
                   m('a[href="' + field.value + '"]', m.trust(field.value))
                 ])
               )
-            }
-            else if ((field.uid != "fullrecord") && (field.uid != "title")) {
+            } else if ((field.uid != "fullrecord") && (field.uid != "title")) {
               memo.push(
                 m("dt", m.trust(field.name)),
                 m("dd", m.trust(field.value))
