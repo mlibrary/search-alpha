@@ -24,7 +24,7 @@ app.Searchables = {
             // the config count should be set to 3.
             
           }
-        }, searchable.name)
+        }, m.trust(searchable.name))
       })
     ])
   }

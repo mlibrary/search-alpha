@@ -26,6 +26,11 @@ app.settings = {
       name: 'Quick Search',
       uid: 'quicksearch',
       datastores: ['mirlyn', 'journals', 'databases', 'website', 'guides']
+    },
+    {
+      name: 'Movies &amp; Media Bento',
+      uid: 'movies-and-media-bento',
+      datastores: ['mirlyn-videos', 'mivideo', 'database-videos']
     }
   ]
 }
