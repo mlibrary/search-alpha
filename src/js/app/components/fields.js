@@ -40,6 +40,7 @@ app.Fields = {
         onchange: function(e) {
           m.redraw.strategy("none")
           app.selected_field(e.target.value)
+          m.route(app.getURL())
         }
       },
       [
@@ -54,5 +55,35 @@ app.Fields = {
     }
 
     return m('select.disabled')
+  }
+}
+
+app.getFields = function() {
+  var data = app.data()
+  var uid = app.currentSearchable().uid
+
+  if (data[uid].is_multisearch) {
+
+    // TODO TEMP
+    // What fields should be used to multisearches?
+    return [
+      {
+        uid: 'title',
+        metadata: {
+          name: "Title"
+        }
+      }
+    ]
+  } else {
+    return data[uid].metadata.fields
+  }
+}
+
+app.changeToField = function(field_uid) {
+  var available_fields = app.getFields()
+  var field = _.findWhere(available_fields, {uid: field_uid})
+
+  if (field) {
+    app.selected_field(field.uid)
   }
 }

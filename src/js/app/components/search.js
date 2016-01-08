@@ -11,21 +11,7 @@ app.Search = {
   controller: function() {
     return {
       submit: function() {
-        NProgress.start()
-
-        var count = 10;
-
-        if (app.isMultisearch()) {
-          count = 3;
-        }
-
-        var config = {
-          page: 1,
-          count: count,
-          field_tree: Pride.FieldTree.parseField(app.selected_field(), app.search_input())
-        }
-
-        app.search_switcher().set(config).run()
+        app.submitSearch()
       }
     }
   },
@@ -36,7 +22,7 @@ app.Search = {
           m("input[type='text']#search[placeholder='Search']", {
             oninput: m.withAttr('value', function(value) {
               m.redraw.strategy("none")
-              app.search_input(value)
+              app.updateSearchInput(value)
             })
           }),
           m.component(app.Fields),
@@ -85,4 +71,29 @@ app.SearchInfo = {
 
     return m("p.hide")
   }
+}
+
+app.submitSearch = function() {
+  NProgress.start()
+  
+  var count = 10;
+
+  if (app.isMultisearch()) {
+    count = 3;
+  }
+
+  var config = {
+    page: 1,
+    count: count,
+    field_tree: Pride.FieldTree.parseField(app.selected_field(), app.search_input())
+  }
+
+  app.search_switcher().set(config).run()
+}
+
+app.updateSearchInput = function(search_input) {
+  var search_element = document.getElementById("search");
+  app.search_input(search_input)
+
+  search_element.value = search_input
 }

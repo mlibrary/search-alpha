@@ -13,12 +13,13 @@ app.state = {
 
   // Initialize Mithril
   init: function() {
-    m.route.mode = "hash";
     m.route(document, "/", {
       "/": app.Home,
+      "/search/:searchable_uid": app.Home,
+      "/search/:searchable_uid/field/:field_uid": app.Home,
+      "/search/:searchable_uid/field/:field_uid/query/:query": app.Home,
+      "/search/:searchable_uid/field/:field_uid/query/:query/page/:page": app.Home
     });
-
-    NProgress.start()
   },
 
   // Initialize Pride and related components.
@@ -73,10 +74,12 @@ app.state = {
       search_objects.slice(1)
     ))
 
-    app.selected_field('title') // temp, replace with first field
+    app.selected_field('title') // TODO temp, replace with first field
 
     app.searchables(searchables)
     m.redraw()
+
+    app.updateRoute(force_update = true)
 
     Pride.Messenger.addObserver(function(message) {
       app.Messages.add(message);

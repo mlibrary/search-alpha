@@ -17,17 +17,27 @@ app.Searchables = {
 
         return m("li" + selected_class + "[data-uid='" + searchable.uid + "']", {
           onclick: function(e) {
-            app.search_switcher().switchTo(e.target.dataset.uid)
+            app.switchToSearchable(e.target.dataset.uid)
 
             // TODO
             // When switching to a Multisearch (e.g. Quick Search),
             // the config count should be set to 3.
-            
+
+            m.route(app.getURL())
           }
         }, m.trust(searchable.name))
       })
     ])
   }
+}
+
+app.switchToSearchable = function(uid) {
+  if (app.isSearchable(uid)) {
+    app.search_switcher().switchTo(uid)
+    return true
+  }
+
+  return false
 }
 
 app.currentSearchable = function() {
@@ -38,4 +48,16 @@ app.getSearchable = function(uid) {
   return _.find(app.searchables(), function(searchable) {
     return searchable.uid == uid
   })
+}
+
+app.isSearchable = function(uid) {
+  var is_searchable = false
+
+  _.find(app.searchables(), function(searchable) {
+    if (searchable.uid == uid) {
+      is_searchable = true
+    }
+  })
+
+  return is_searchable
 }

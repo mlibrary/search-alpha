@@ -12,12 +12,8 @@ Pride.Settings.obnoxious = false;
 Pride.init({
   success: function() {
     app.state.initPride()
-
-    NProgress.done()
   },
   failure: function() {
     throw "Pride failed to load."
-    
-    NProgress.done()
   }
 })

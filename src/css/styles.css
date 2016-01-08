@@ -221,6 +221,7 @@ dt:after {
 dd {
   margin: 0 0 0 8.5em;
   padding: 0 0 0.5em 0;
+  word-break: break-all;
 }
 @media (max-width: 50em) {
   dd {
