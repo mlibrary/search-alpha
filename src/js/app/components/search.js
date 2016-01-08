@@ -21,7 +21,6 @@ app.Search = {
         m("div", [
           m("input[type='text']#search[placeholder='Search']", {
             oninput: m.withAttr('value', function(value) {
-              m.redraw.strategy("none")
               app.updateSearchInput(value)
             })
           }),

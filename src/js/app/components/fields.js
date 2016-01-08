@@ -38,7 +38,6 @@ app.Fields = {
     if (metadata) {
       return m("select.fields", {
         onchange: function(e) {
-          m.redraw.strategy("none")
           app.selected_field(e.target.value)
           m.route(app.getURL())
         }
