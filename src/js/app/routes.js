@@ -3,16 +3,20 @@ app.updateRoute = function(force_update) {
   var field_uid = m.route.param('field_uid')
   var query = m.route.param('query')
 
-  if (app.switchToSearchable(searchable_uid) && field_uid) {
-    app.changeToField(field_uid)
-  }
+  if (m.route() != '/') {
+    if (app.switchToSearchable(searchable_uid) && field_uid) {
+      app.changeToField(field_uid)
+    }
 
-  if (query) {
-    app.updateSearchInput(query)
-  }
+    if (query) {
+      app.updateSearchInput(query)
+    }
 
-  if (force_update) {
-    app.submitSearch()
+    if (force_update) {
+      app.submitSearch()
+    }
+  } else {
+    m.route(app.getURL())
   }
 }
 
@@ -22,7 +26,7 @@ app.getURL = function() {
     + app.selected_field()
   var query = app.search_input()
 
-  if (query != "") {
+  if (query && (query != "")) {
     url = url + "/query/" + query
   }
 

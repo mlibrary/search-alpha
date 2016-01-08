@@ -89,6 +89,8 @@ app.submitSearch = function() {
   }
 
   app.search_switcher().set(config).run()
+  
+  m.route(app.getURL())
 }
 
 app.updateSearchInput = function(search_input) {
