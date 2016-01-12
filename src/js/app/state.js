@@ -13,7 +13,9 @@ app.state = {
 
   // Initialize Mithril
   init: function() {
-    m.route(document, "/", {
+    var mount_element = document.getElementById('mount-container')
+
+    m.route(mount_element, "/", {
       "/": app.Home,
       "/search/:searchable_uid": app.Home,
       "/search/:searchable_uid/field/:field_uid": app.Home,

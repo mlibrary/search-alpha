@@ -81,6 +81,10 @@ app.submitSearch = function() {
     count = 3;
   }
 
+  if (app.search_input() == undefined) {
+    app.search_input("")
+  }
+
   var config = {
     page: 1,
     count: count,

@@ -9,11 +9,13 @@ Pride.Settings.datastores_url = "http://dev.www.lib.umich.edu/testapp/spectrum/"
 Pride.Settings.connection_attempts = 2;
 Pride.Settings.obnoxious = false;
 
-Pride.init({
-  success: function() {
-    app.state.initPride()
-  },
-  failure: function() {
-    throw "Pride failed to load."
-  }
-})
+function initPride() {
+  Pride.init({
+    success: function() {
+      app.state.initPride()
+    },
+    failure: function() {
+      throw "Pride failed to load."
+    }
+  })
+}

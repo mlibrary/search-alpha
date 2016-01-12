@@ -3,9 +3,15 @@
 <head>
   <title>Search [Alpha]</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet'>
+  <link href='src/css/styles.css' rel='stylesheet'>
+  <link href='src/lib/nprogress/nprogress.css' rel='stylesheet'>
 </head>
-<body style="background: #efefef;">
-  <p style="font-family: sans-serif; font-size: 1em;">Loading...</p>
+<body>
+  <div id="mount-container">
+    <p>Loading...</p>
+  </div>
 
   <!-- Libraries -->
   <script src="src/lib/underscore.js"></script>
@@ -29,7 +35,11 @@
   <!-- Pride -->
   <script src="src/lib/pride/pride.js"></script>
 
-  <!-- Init pride -->
+  <!-- App Pride Settings -->
   <script src="src/js/app/pride.js"></script>
+
+  <script>
+    initPride()
+  </script>
 </body>
 </html>
