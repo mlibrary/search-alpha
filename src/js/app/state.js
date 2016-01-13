@@ -81,7 +81,7 @@ app.state = {
     app.searchables(searchables)
     m.redraw()
 
-    app.updateRoute(force_update = true)
+    app.updateRoute()
 
     Pride.Messenger.addObserver(function(message) {
       app.Messages.add(message);

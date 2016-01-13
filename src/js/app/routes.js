@@ -10,9 +10,6 @@ app.updateRoute = function(force_update) {
 
     if (query) {
       app.updateSearchInput(query)
-    }
-
-    if (force_update) {
       app.submitSearch()
     }
   }
