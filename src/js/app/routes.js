@@ -15,8 +15,6 @@ app.updateRoute = function(force_update) {
     if (force_update) {
       app.submitSearch()
     }
-  } else {
-    m.route(app.getURL())
   }
 }
 
