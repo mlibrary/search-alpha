@@ -1,4 +1,4 @@
-// Copyright (c) 2015, Regents of the University of Michigan.
+// Copyright (c) 2016, Regents of the University of Michigan.
 // All rights reserved. See LICENSE.txt for details.
 
 // Authored by Jon Earley (earleyj@umich.edu)
@@ -13,6 +13,7 @@ app.Home = {
         m(".site-title-container", [
           m(".container", [
             m("h1.site-title", "Search [Alpha]")
+            //m.component(app.Feedback)
           ])
         ]),
         m(".container", [
@@ -21,7 +22,8 @@ app.Home = {
       ]),
       m(".container", [
         m("aside", [
-          m.component(app.Searchables)
+          m.component(app.Searchables),
+          m.component(app.Facets)
         ]),
         m("main", [
           m.component(app.Pagination),

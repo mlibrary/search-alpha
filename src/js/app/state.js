@@ -1,4 +1,4 @@
-// Copyright (c) 2015, Regents of the University of Michigan.
+// Copyright (c) 2016, Regents of the University of Michigan.
 // All rights reserved. See LICENSE.txt for details.
 
 // Authored by Jon Earley (earleyj@umich.edu)
@@ -45,17 +45,36 @@ app.state = {
     // Add results observers to each search object.
     _.each(search_objects, function(search_object) {
       search_object.setMute(true)
+
+      // results records observer
       search_object.resultsObservers.add(function(data) {
-        app.setObservers(search_object.uid, data, 'records')
+        app.setSearchableObservers(search_object.uid, data, 'records')
       })
 
+      // Set records observer
       search_object.setDataObservers.add(function(data) {
-        app.setObservers(search_object.uid, data, 'metadata')
+        app.setSearchableObservers(search_object.uid, data, 'metadata')
       })
 
+      // run records observer
       search_object.runDataObservers.add(function(data) {
-        app.setObservers(search_object.uid, data, 'metadata')
+        app.setSearchableObservers(search_object.uid, data, 'metadata')
       })
+
+      // search object facets observer
+      search_object.facetsObservers.add(function(facets_data) {
+        _.each(facets_data, function(facet) {
+
+          facet.resultsObservers.add(function(results) {
+            app.setFacetObservers(search_object.uid, facet, 'results', results) // searchable_uid, facet_object, type, data
+          })
+
+          facet.setDataObservers.add(function(data) {
+            app.setFacetObservers(search_object.uid, facet, 'data', data)
+          })
+        })
+      })
+
     })
 
     _.each(app.settings.multisearches, function(ms) {
@@ -110,15 +129,15 @@ app.createMultiSearch = function(ms) {
 
   _.each(ms_search_array, function(search_object) {
     search_object.resultsObservers.add(function(records) {
-      app.setObservers(search_object.uid, records, 'records', ms)
+      app.setSearchableObservers(search_object.uid, records, 'records', ms)
     })
 
     search_object.setDataObservers.add(function(data) {
-      app.setObservers(search_object.uid, data, 'metadata', ms)
+      app.setSearchableObservers(search_object.uid, data, 'metadata', ms)
     })
 
     search_object.runDataObservers.add(function(data) {
-      app.setObservers(search_object.uid, data, 'metadata', ms)
+      app.setSearchableObservers(search_object.uid, data, 'metadata', ms)
     })
   })
 
@@ -142,13 +161,23 @@ app.getDatastore = function(uid) {
   return is_datastore
 }
 
+app.getSelectedDatastore = function() {
+  var uid = undefined
+
+  if (app.search_switcher()) {
+    uid = app.search_switcher().uid
+  }
+
+  return uid
+}
+
 /*
   uid:           datastore uid
   observer_data: observer results/data
   type:          "records" or "metadata"
   multisearch:   true or false
 */
-app.setObservers = function(searchable_uid, observer_data, type, multisearch) {
+app.setSearchableObservers = function(searchable_uid, observer_data, type, multisearch) {
   var data = app.data()
   var path = searchable_uid + "." + type
 
@@ -166,6 +195,59 @@ app.setObservers = function(searchable_uid, observer_data, type, multisearch) {
   setValue(data, path, observer_data)
   app.data(data)
 
+  m.redraw()
+}
+
+/*
+  searchable_uid: 
+  facet_object
+  type:            facet name or "results"
+  data:            facet data
+*/
+app.setFacetObservers = function(searchable_uid, facet_object, type, observer_data) {
+
+  /*
+
+    // example of data/model structure for facets
+
+   databases = {
+     facets: [
+       author: {
+         facet_object: {}
+         results: [
+           /... facets results
+         ]
+         data: {}
+       },
+       new: {
+         // facet_object
+         results: [
+           /... facets results
+         ],
+         data {}
+       }
+     ]
+   }
+  */
+
+  var path = searchable_uid + ".facets"
+  var data = app.data()
+
+  if (!data[searchable_uid].facets) {
+    // if the datastore doesn't have facets as a key, create an empty
+    // array and initialize
+    setValue(data, path, {})
+  }
+
+  if (type == 'results') {
+    path = path + "." + facet_object.uid + ".results"
+    setValue(data, path, observer_data)
+  } else {
+    path = path + "." + facet_object.uid + ".metadata"
+    setValue(data, path, observer_data)
+  }
+
+  app.data(data)
   m.redraw()
 }
 

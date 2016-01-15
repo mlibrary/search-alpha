@@ -61,6 +61,9 @@ h3 {
   font-weight: 700;
   font-size: 1.3em;
 }
+h4 {
+  font-weight: 700;
+}
 body {
   line-height: 1.4;
 }
@@ -71,6 +74,7 @@ body,
 a {
  font-family: "Open Sans";
  color: #444;
+ text-decoration: none;
 }
 body {
   background: #efefef;
@@ -173,13 +177,13 @@ form input {
   padding: 0;
   margin: 0;
   list-style: none;
-  margin-bottom: 2em;
+  margin-bottom: 1rem;
 }
 .searchables li {
   cursor: pointer;
-  padding: 0.4em 0.6em;
+  padding: 0.3em 0.6em;
 }
-.searchables li.selected {
+.selected {
   background: #444;
   color: white;
 }
@@ -208,26 +212,26 @@ form input {
 .search-details {
   margin-bottom: 0;
 }
-dt {
+.item dt {
   float: left;
   clear: left;
   width: 8em;
   text-align: right;
   font-weight: bold;
 }
-dt:after {
+.item dt:after {
   content: ":";
 }
-dd {
+.item dd {
   margin: 0 0 0 8.5em;
   padding: 0 0 0.5em 0;
   word-break: break-all;
 }
 @media (max-width: 50em) {
-  dd {
+  .item dd {
     margin: 0;
   }
-  dt {
+  .item dt {
     float: none;
     text-align: left;
     width: auto;
@@ -367,4 +371,20 @@ b {
   flex-grow: 1;
   margin: 1rem 0 0 1rem;
   width: calc(100% * (1/2) - 1rem);
+}
+
+/*
+  Facet list
+*/
+.facet {
+  margin-bottom: 1rem;
+}
+
+.facet h4 {
+  padding: 0.2rem 0.6rem;
+}
+
+.facet li {
+  padding: 0.2rem 0.6rem;
+  cursor: pointer;
 }

@@ -1,4 +1,4 @@
-// Copyright (c) 2015, Regents of the University of Michigan.
+// Copyright (c) 2016, Regents of the University of Michigan.
 // All rights reserved. See LICENSE.txt for details.
 
 // Authored by Jon Earley (earleyj@umich.edu)
@@ -19,11 +19,7 @@ app.Search = {
     return m(".search", [
       m("form", [
         m("div", [
-          m("input[type='text']#search[placeholder='Search']", {
-            oninput: m.withAttr('value', function(value) {
-              app.updateSearchInput(value)
-            })
-          }),
+          m("input[type='text']#search[placeholder='Search']"),
           m.component(app.Fields),
           m("input[type='submit'][value='Search']", {
             onclick: function(e) {
@@ -83,6 +79,8 @@ app.submitSearch = function() {
 
   if (app.search_input() == undefined) {
     app.search_input("")
+  } else {
+    //app.search_input(document.getElementById("search").value)
   }
 
   var config = {
@@ -94,11 +92,4 @@ app.submitSearch = function() {
   app.search_switcher().set(config).run()
   
   m.route(app.getURL())
-}
-
-app.updateSearchInput = function(search_input) {
-  var search_element = document.getElementById("search");
-  app.search_input(search_input)
-
-  search_element.value = search_input
 }
