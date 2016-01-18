@@ -14,10 +14,17 @@ app.Search = {
     }
   },
   view: function(ctrl) {
+
+    m.redraw.strategy("none") // prevents search input from being redrawn
+
     return m(".search", [
       m("form", [
         m("div", [
-          m("input[type='text'][value='" + app.search_input() + "']#search"),
+          m("input[type='text']#search", {
+            oninput: function(e) {
+              app.search_input(e.target.value)
+            }
+          }),
           m.component(app.Fields),
           m("input[type='submit']", {
             onclick: function(e) {
@@ -76,8 +83,6 @@ app.submitSearch = function() {
   if (app.isMultisearch()) {
     count = 3;
   }
-
-  document.getElementById('search').value = app.search_input()
 
   var config = {
     page: 1,

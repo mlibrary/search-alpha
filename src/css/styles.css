@@ -385,6 +385,18 @@ b {
 }
 
 .facet li {
+  position: relative;
+}
+
+.facet .facet-details {
   padding: 0.3rem 0.6rem;
+  cursor: pointer;
+}
+
+.deselect-facet {
+  position: absolute;
+  top: 0.3rem;
+  right: 0.6rem;
+  color: white;
   cursor: pointer;
 }

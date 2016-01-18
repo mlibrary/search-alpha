@@ -9,7 +9,10 @@ app.updateRoute = function(force_update) {
     }
 
     if (query) {
+      
+      document.getElementById('search').value = query
       app.search_input(query)
+
       app.submitSearch()
     }
   }
