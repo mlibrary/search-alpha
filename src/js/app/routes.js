@@ -9,7 +9,7 @@ app.updateRoute = function(force_update) {
     }
 
     if (query) {
-      app.updateSearchInput(query)
+      app.search_input(query)
       app.submitSearch()
     }
   }
@@ -21,7 +21,7 @@ app.getURL = function() {
     + app.selected_field()
   var query = app.search_input()
 
-  if (query && (query != "")) {
+  if (query) {
     url = url + "/query/" + query
   }
 

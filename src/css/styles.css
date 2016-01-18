@@ -181,7 +181,7 @@ form input {
 }
 .searchables li {
   cursor: pointer;
-  padding: 0.3em 0.6em;
+  padding: 0.3rem 0.6rem;
 }
 .selected {
   background: #444;
@@ -381,10 +381,10 @@ b {
 }
 
 .facet h4 {
-  padding: 0.2rem 0.6rem;
+  padding: 0.3rem 0.6rem;
 }
 
 .facet li {
-  padding: 0.2rem 0.6rem;
+  padding: 0.3rem 0.6rem;
   cursor: pointer;
 }

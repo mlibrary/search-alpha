@@ -5,26 +5,24 @@
 
 var app = app || {};
 
-app.search_input = m.prop()
+app.search_input = m.prop("")
 
 app.Search = {
   controller: function() {
-    return {
-      submit: function() {
-        app.submitSearch()
-      }
+    this.submitSearch = function() {
+      app.submitSearch()
     }
   },
   view: function(ctrl) {
     return m(".search", [
       m("form", [
         m("div", [
-          m("input[type='text']#search[placeholder='Search']"),
+          m("input[type='text'][value='" + app.search_input() + "']#search"),
           m.component(app.Fields),
-          m("input[type='submit'][value='Search']", {
+          m("input[type='submit']", {
             onclick: function(e) {
               e.preventDefault()
-              ctrl.submit()
+              ctrl.submitSearch()
             }
           })
         ])
@@ -72,16 +70,14 @@ app.submitSearch = function() {
   NProgress.start()
   
   var count = 10;
+  var selected_facets = app.selected_facets()
+  var datastore_uid = app.getSelectedDatastore()
 
   if (app.isMultisearch()) {
     count = 3;
   }
 
-  if (app.search_input() == undefined) {
-    app.search_input("")
-  } else {
-    //app.search_input(document.getElementById("search").value)
-  }
+  document.getElementById('search').value = app.search_input()
 
   var config = {
     page: 1,
@@ -89,7 +85,11 @@ app.submitSearch = function() {
     field_tree: Pride.FieldTree.parseField(app.selected_field(), app.search_input())
   }
 
+  if (selected_facets && selected_facets[datastore_uid]) {
+    config.facets = selected_facets[datastore_uid]
+  }
+
   app.search_switcher().set(config).run()
-  
+
   m.route(app.getURL())
 }

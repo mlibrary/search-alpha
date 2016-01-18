@@ -19,46 +19,29 @@ app.Facets = {
         return undefined
       }
     }
-    this.select = function(facet_value) {
-      var data = app.data()
+    this.select = function(facet_uid, value) {
+      var selected_facets = app.selected_facets()
+      var datastore_uid = app.getSelectedDatastore()
 
-      // notes
+      if (!selected_facets) {
+        selected_facets = {}
+      }
 
-      /*
-
-        app.selected_facets strucutre:
-
-        {
-          datastore_uid: {
-            facet_uid: undefined,
-            facet_uid: "selected_value",
-            //...
-          },
-          datastore_uid: {
-            facet_uid: undefined,
-            facet_uid: "selected_value"
-            /...
-          },
-          /...
-        }
-
-        On search submit, pass along the datastore facet object.
-
-        {
-          facet_uid: value,
-          //...
-        }
-
-      */
-
-
-      app.selected_facets
+      setValue(selected_facets, datastore_uid + "." + facet_uid, value)
+      app.selected_facets(selected_facets)
     }
     this.isSelected = function(facet_uid, result_value) {
+      var selected_facets = app.selected_facets() 
+      var datastore_uid = app.getSelectedDatastore()
 
-      // notes
+      // if there are selected facets
+      if (selected_facets) { 
 
-      // check if selected datastore is the chosen one.
+        // does the facet option match a selected facet
+        if (result_value == selected_facets[datastore_uid][facet_uid]) {
+          return true
+        }
+      }
 
       return false
     }
@@ -79,9 +62,9 @@ app.Facets = {
                     selected_class = '.selected'
                   }
 
-                  return m('li[data-facet_uid="' + facet.metadata.uid + '"][data-value="' + result.value + '"]' + selected_class + '', {
+                  return m('li[data-facet_uid="' + facet.metadata.uid + '"][data-facet_value="' + result.value + '"]' + selected_class + '', {
                     onclick: function(e) {
-                      ctrl.select(e.target.dataset.value)
+                      ctrl.select(facet.metadata.uid, e.target.dataset.facet_value)
                     }
                   }, result.name + " (" + result.count + ")")
                 })
@@ -93,27 +76,3 @@ app.Facets = {
     ])
   }
 }
-
-app.Facets.getSelected = function() {
-
-}
-
-/*
-<h3>Filter</h3>
-<ul>
-  <li>
-    <h4>Academic Discipline</h4>
-    <dl>
-      <dt>General Information Sources<ht>
-      <dl>422</dl>
-
-      <dt>Social Siences<ht>
-      <dl>396</dl>
-      //...
-    </dl>
-  </li>
-  <li>
-    //...
-  </li>
-</ul>
-*/
