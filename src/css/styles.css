@@ -390,6 +390,7 @@ b {
 
 .facet .facet-details {
   padding: 0.3rem 0.6rem;
+  padding-right: 2rem;
   cursor: pointer;
 }
 

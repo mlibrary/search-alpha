@@ -20,7 +20,8 @@ app.state = {
       "/search/:searchable_uid": app.Home,
       "/search/:searchable_uid/field/:field_uid": app.Home,
       "/search/:searchable_uid/field/:field_uid/query/:query": app.Home,
-      "/search/:searchable_uid/field/:field_uid/query/:query/page/:page": app.Home
+      "/search/:searchable_uid/field/:field_uid/query/:query/facets/:facets.../": app.Home,
+      "/search/:searchable_uid/field/:field_uid/query/:query/page/:page": app.Home,
     });
   },
 
