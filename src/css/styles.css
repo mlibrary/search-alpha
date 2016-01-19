@@ -76,6 +76,9 @@ a {
  color: #444;
  text-decoration: none;
 }
+a {
+  text-decoration: underline;
+}
 body {
   background: #efefef;
   font-weight: 400;

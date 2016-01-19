@@ -74,7 +74,6 @@ app.SearchInfo = {
 }
 
 app.submitSearch = function() {
-  NProgress.start()
   
   var count = 10;
   var selected_facets = app.selected_facets()
@@ -82,6 +81,8 @@ app.submitSearch = function() {
 
   if (app.isMultisearch()) {
     count = 3;
+  } else {
+    count = 10;
   }
 
   var config = {

@@ -96,8 +96,6 @@ app.Record = {
     if (record) {
       var data
 
-      NProgress.done()
-
       record.renderPart(function(raw_data) {
         data = raw_data
       })
