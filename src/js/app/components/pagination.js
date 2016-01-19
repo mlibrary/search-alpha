@@ -35,15 +35,15 @@ app.Pagination = {
 
       return m('ul.pagination', [
         m("li", [
-          m("a[href='#'].btn", {
+          m("a[href=''].btn", {
             onclick: search.prevPage
           }, "Prev")
         ]),
         m("li", [
-          m("a[href='#']", "Page " + metadata.page + " of " + metadata.page_limit)
+          m("a[href='']", "Page " + metadata.page + " of " + metadata.page_limit)
         ]),
         m("li", [
-          m("a[href='#'].btn", {
+          m("a[href=''].btn", {
             onclick: search.nextPage
           }, "Next")
         ])

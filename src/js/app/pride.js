@@ -12,10 +12,12 @@ Pride.Settings.obnoxious = false;
 function initPride() {
   Pride.init({
     success: function() {
+      app.status('success')
       app.state.initPride()
     },
     failure: function() {
-      throw "Pride failed to load."
+      app.status('failure')
+      m.redraw()
     }
   })
 }

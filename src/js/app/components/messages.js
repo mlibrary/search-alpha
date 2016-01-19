@@ -24,9 +24,13 @@ app.Message = {
 }
 
 app.Messages = {
+  clear: function() {
+    app.messages = []
+    m.redraw()
+  },
   add: function(message) {
     app.messages.push(message)
-    m.redraw();
+    m.redraw()
   },
   controller: function() {
     return app.messages

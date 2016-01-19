@@ -14,7 +14,6 @@ app.Search = {
     }
   },
   view: function(ctrl) {
-
     m.redraw.strategy("none") // prevents search input from being redrawn
 
     return m(".search", [
