@@ -25,7 +25,7 @@ app.Search = {
             }
           }),
           m.component(app.Fields),
-          m("input[type='submit']", {
+          m("input[type='submit'][value='Find it']", {
             onclick: function(e) {
               e.preventDefault()
               ctrl.submitSearch()

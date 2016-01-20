@@ -5,7 +5,7 @@
 
 var app = app || {};
 
-Pride.Settings.datastores_url = "https://dev.www.lib.umich.edu/testapp/spectrum/";
+Pride.Settings.datastores_url = "http://earleyj.www.lib.umich.edu/testapp/spectrum/";
 Pride.Settings.connection_attempts = 2;
 Pride.Settings.obnoxious = false;
 
@@ -17,7 +17,6 @@ function initPride() {
     },
     failure: function() {
       app.status('failure')
-      m.redraw()
     }
   })
 }

@@ -6,31 +6,31 @@
 var app = app || {};
 
 app.settings = {
-  datastores: [
-    'mirlyn',
-    'databases',
-    'journals',
-    'website',
-    'mivideo',
-    'mirlyn-videos',
-    'guides',
-    'mirlyn-disserations',
-    'database-videos',
-    'dlps',
-    'ask-librarian',
-    'staff',
-    'events'
-  ],
   multisearches: [
     {
       name: 'Quick Search',
-      uid: 'quicksearch',
+      uid: 'quicksearch-bento',
       datastores: ['mirlyn', 'journals', 'databases', 'website', 'guides']
     },
     {
       name: 'Movies &amp; Media Bento',
       uid: 'movies-and-media-bento',
       datastores: ['mirlyn-videos', 'mivideo', 'database-videos']
+    },
+    {
+      name: 'Website',
+      uid: 'website-bento',
+      datastores: ['website', 'staff', 'events']
     }
+  ],
+  datastores: [
+    'mirlyn',
+    'articlesplus',
+    'databases',
+    'journals',
+    'guides',
+    'mirlyn-disserations',
+    'database-videos',
+    'dlps',
   ]
 }

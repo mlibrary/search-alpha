@@ -9,19 +9,18 @@ app.status = m.prop('loading')
 
 app.Home = {
   view: function() {
-    switch (app.status()) {
-      case 'loading':
-        return m('p', 'Loading...')
-      case 'success':
-        app.Messages.clear()
 
+    switch(app.status()) {
+      case 'loading':
+        return m('p.loading', 'Loading ...')
+      case 'success':
         return m("div", [
           m("header", [
             m.component(app.Messages),
             m(".site-title-container", [
               m(".container", [
-                m("h1.site-title", "Search [Alpha]")
-                //m.component(app.Feedback)
+                m("h1.site-title", "Search Alpha [Technical Prorotype]"),
+                m.component(app.Feedback)
               ])
             ]),
             m(".container", [
@@ -41,15 +40,8 @@ app.Home = {
             ])
           ])
         ])
-
       case 'failure':
-        app.Messages.clear()
-        app.Messages.add({
-          class: 'error',
-          summary: 'Error: The page failed to load.'
-        })
-
-        return m.component(app.Messages)
+        return m('p.loading', 'Failed to load page.')
     }
   }
 }
