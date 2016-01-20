@@ -90,7 +90,7 @@ app.state = {
         })
       }
     })
-
+    
     app.search_switcher(new Pride.Util.SearchSwitcher(
       search_objects[0],
       search_objects.slice(1)
