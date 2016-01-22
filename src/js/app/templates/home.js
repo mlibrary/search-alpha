@@ -19,7 +19,7 @@ app.Home = {
             m.component(app.Messages),
             m(".site-title-container", [
               m(".container", [
-                m("h1.site-title", "Search Alpha [Technical Prototype]"),
+                m("h1.site-title", "Search Alpha"),
                 m.component(app.Feedback)
               ])
             ]),
