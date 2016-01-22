@@ -32,5 +32,17 @@ app.settings = {
     'mirlyn-disserations',
     'database-videos',
     'dlps',
-  ]
+  ],
+  searchables_order: [
+    "quicksearch-bento",
+    "mirlyn",
+    "articlesplus",
+    "databases",
+    "journals",
+    "website-bento",
+    "movies-and-media-bento",
+    "guides",
+    "dlps"
+  ],
+  log: true
 }

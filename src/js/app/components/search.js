@@ -73,20 +73,11 @@ app.SearchInfo = {
 }
 
 app.submitSearch = function() {
-  
-  var count = 10;
   var selected_facets = app.selected_facets()
   var datastore_uid = app.getSelectedDatastore()
 
-  if (app.isMultisearch()) {
-    count = 3;
-  } else {
-    count = 10;
-  }
-
   var config = {
     page: 1,
-    count: count,
     field_tree: Pride.FieldTree.parseField(app.selected_field(), app.search_input())
   }
 

@@ -52,15 +52,17 @@ app.state = {
         app.setSearchableObservers(search_object.uid, data, 'records')
       })
 
-      // Set records observer
+      // Set data observer
       search_object.setDataObservers.add(function(data) {
         app.setSearchableObservers(search_object.uid, data, 'metadata')
       })
 
-      // run records observer
+      // run data observer
       search_object.runDataObservers.add(function(data) {
         app.setSearchableObservers(search_object.uid, data, 'metadata')
       })
+
+      search_object.set({count: 10})
 
       // search object facets observer
       search_object.facetsObservers.add(function(facets_data) {
@@ -81,6 +83,8 @@ app.state = {
     _.each(app.settings.multisearches, function(ms) {
       var multisearch = app.createMultiSearch(ms)
 
+      multisearch.set({count: 3})
+
       if (multisearch) {
         search_objects.push(multisearch)
 
@@ -96,9 +100,15 @@ app.state = {
       search_objects.slice(1)
     ))
 
-    app.selected_field('title') // TODO temp, replace with first field
+    app.selected_field('all_fields') // TODO temp, replace with first field
 
-    app.searchables(searchables)
+    var sorted_searchables = []
+
+    _.each(app.settings.searchables_order, function(searchable) {
+      sorted_searchables.push(_.findWhere(searchables, {uid: searchable}))
+    })
+
+    app.searchables(sorted_searchables)
     m.redraw()
 
     app.updateRoute()
@@ -208,27 +218,26 @@ app.setSearchableObservers = function(searchable_uid, observer_data, type, multi
 app.setFacetObservers = function(searchable_uid, facet_object, type, observer_data) {
 
   /*
-
     // example of data/model structure for facets
 
-   databases = {
-     facets: [
-       author: {
-         facet_object: {}
-         results: [
-           /... facets results
-         ]
-         data: {}
-       },
-       new: {
-         // facet_object
-         results: [
-           /... facets results
-         ],
-         data {}
-       }
-     ]
-   }
+    databases = {
+      facets: [
+        author: {
+          facet_object: {}
+          results: [
+            /... facets results
+          ]
+          data: {}
+        },
+        new: {
+          // facet_object
+          results: [
+            /... facets results
+          ],
+          data {}
+        }
+      ]
+    }
   */
 
   var path = searchable_uid + ".facets"

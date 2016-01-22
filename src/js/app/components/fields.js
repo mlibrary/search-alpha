@@ -31,7 +31,7 @@ app.Fields = {
 
     if (app.isMultisearch()) {
       return m("select.fields", [
-        m("option[value='title']", "Title")
+        m("option[value='all_fields']", "All Fields")
       ])
     }
 
