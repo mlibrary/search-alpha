@@ -94,11 +94,6 @@ app.state = {
         })
       }
     })
-    
-    app.search_switcher(new Pride.Util.SearchSwitcher(
-      search_objects[0],
-      search_objects.slice(1)
-    ))
 
     app.selected_field('all_fields') // TODO temp, replace with first field
 
@@ -107,6 +102,11 @@ app.state = {
     _.each(app.settings.searchables_order, function(searchable) {
       sorted_searchables.push(_.findWhere(searchables, {uid: searchable}))
     })
+
+    app.search_switcher(new Pride.Util.SearchSwitcher(
+      search_objects[0],
+      search_objects.slice(1)
+    ))
 
     app.searchables(sorted_searchables)
     m.redraw()
@@ -117,6 +117,8 @@ app.state = {
       app.Messages.add(message);
       m.redraw()
     })
+
+    app.switchToSearchable('quicksearch-bento')
   }
 }
 
