@@ -390,6 +390,12 @@ b {
   width: calc(100% * (1/2) - 1rem);
 }
 
+@media (max-width: 50em) {
+  .multisearch .datastore {
+    width: auto;
+  }
+}
+
 /*
   Facet list
 */

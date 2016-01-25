@@ -62,14 +62,13 @@ app.getFields = function() {
   var uid = app.currentSearchable().uid
 
   if (data[uid].is_multisearch) {
-
     // TODO TEMP
     // What fields should be used to multisearches?
     return [
       {
-        uid: 'title',
+        uid: 'all_fields',
         metadata: {
-          name: "Title"
+          name: "All Fields"
         }
       }
     ]

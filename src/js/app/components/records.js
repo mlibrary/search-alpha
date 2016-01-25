@@ -70,8 +70,6 @@ app.Records = {
           }
         })
       ])
-
-      return m("ul.hide")
     } else {
       var records = ctrl.getRecords()
 
@@ -83,9 +81,9 @@ app.Records = {
           })
         ])
       }
-
-      return m("ul.hide")
     }
+
+    return m("ul.hide")
   }
 }
 
@@ -94,6 +92,8 @@ app.Record = {
     var record = args.record
 
     if (record) {
+      app.fetching_search(false)
+
       var data
 
       record.renderPart(function(raw_data) {
@@ -122,7 +122,11 @@ app.Record = {
         )
       ])
     } else {
-      return m.component(app.RecordPlaceholder)
+      if (app.fetching_search()) {
+        return m.component(app.RecordPlaceholder)
+      } else {
+        return m('li.hide')
+      }
     }
   }
 }
