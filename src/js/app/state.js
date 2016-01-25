@@ -111,14 +111,14 @@ app.state = {
     app.searchables(sorted_searchables)
     m.redraw()
 
-    app.updateRoute()
-
     Pride.Messenger.addObserver(function(message) {
       app.Messages.add(message);
       m.redraw()
     })
 
     app.switchToSearchable('quicksearch-bento') // TODO this is temporary solution to defaulting to quicksearch
+
+    app.updateRoute()
   }
 }
 
