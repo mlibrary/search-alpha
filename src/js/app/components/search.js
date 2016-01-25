@@ -6,6 +6,7 @@
 var app = app || {};
 
 app.search_input = m.prop("")
+app.fetching_search = m.prop(false)
 
 app.Search = {
   controller: function() {
@@ -73,6 +74,8 @@ app.SearchInfo = {
 }
 
 app.submitSearch = function() {
+  app.fetching_search(true)
+  
   var selected_facets = app.selected_facets()
   var datastore_uid = app.getSelectedDatastore()
 

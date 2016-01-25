@@ -118,12 +118,13 @@ app.state = {
       m.redraw()
     })
 
-    app.switchToSearchable('quicksearch-bento')
+    app.switchToSearchable('quicksearch-bento') // TODO this is temporary solution to defaulting to quicksearch
   }
 }
 
 window.onload = function() {
   app.state.init()
+  initPride()
 }
 
 app.createMultiSearch = function(ms) {
