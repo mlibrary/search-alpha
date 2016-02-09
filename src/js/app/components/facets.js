@@ -55,7 +55,7 @@ app.Facets = {
       var selected_facets = app.selected_facets()
       var datastore_uid = app.getSelectedDatastore()
 
-      if (selected_facets && facet_uid && selected_facets[datastore_uid][facet_uid]) {
+      if (selected_facets && facet_uid && selected_facets[datastore_uid] && selected_facets[datastore_uid][facet_uid]) {
         return true
       }
 
