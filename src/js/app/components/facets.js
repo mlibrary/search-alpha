@@ -67,12 +67,10 @@ app.Facets = {
       m('ul.facet-list', [
          _.map(ctrl.facets(), function(facet) {
           if (facet.results.length > 0) {
-
             return m('li.facet', [
               m('h4', facet.metadata.metadata.name),
               m('ul', [
                 _.map(facet.results, function(result) {
-
                   if (ctrl.isFacetSelected(facet.metadata.uid)) {
                     if (ctrl.isSelected(facet.metadata.uid, result.value)) {
                       return m('li.facet-item', [
