@@ -13,7 +13,7 @@ app.settings = {
       datastores: ['mirlyn', 'journals', 'databases', 'website', 'guides']
     },
     {
-      name: 'Movies &amp; Media Bento',
+      name: 'Movies &amp; Media',
       uid: 'movies-and-media-bento',
       datastores: ['mirlyn-videos', 'mivideo', 'database-videos']
     },
